@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './components/Card'; // Adjust the path if necessary
-import Filter from './components/Filter'; // Adjust the path if necessary
+//import Filter from './components/Filter'; // Adjust the path if necessary
 
 
 
@@ -28,7 +28,7 @@ class App extends React.Component {
         };
 
         // Bind the onFilterChange method to the App component
-        this.onFilterChange = this.onFilterChange.bind(this);
+        //this.onFilterChange = this.onFilterChange.bind(this);
     }
 
     componentDidMount() {
@@ -81,101 +81,96 @@ class App extends React.Component {
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
                 this.setState({ cars: data.data.cars });
-                const filterData = this.processFilterData(data.data.cars);
-                this.setState(prevState => ({
-                    filterData: filterData,
-                    filters: {
-                        selectedMake: prevState.filters.selectedMake,
-                        selectedDealer: prevState.filters.selectedDealer,
-                        selectedYear: { min: filterData.yearRange.min, max: filterData.yearRange.max },
-                        selectedPrice: { min: filterData.priceRange.min, max: filterData.priceRange.max },
-                        selectedMileage: { min: filterData.mileageRange.min, max: filterData.mileageRange.max }
-                    }
-                })
-                );
+                // const filterData = this.processFilterData(data.data.cars);
+                // this.setState(prevState => ({
+                //     filterData: filterData,
+                //     filters: {
+                //         selectedMake: prevState.filters.selectedMake,
+                //         selectedDealer: prevState.filters.selectedDealer,
+                //         selectedYear: { min: filterData.yearRange.min, max: filterData.yearRange.max },
+                //         selectedPrice: { min: filterData.priceRange.min, max: filterData.priceRange.max },
+                //         selectedMileage: { min: filterData.mileageRange.min, max: filterData.mileageRange.max }
+                //     }
+                // })
+                // );
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
             });
     }
 
-    processFilterData(cars) {
-        let makes = new Set();
-        let dealers = new Set();
-        let years = new Set();
-        let minPrice = Infinity, maxPrice = -Infinity;
-        let minMileage = Infinity, maxMileage = -Infinity;
-        let minYear = Infinity, maxYear = -Infinity;
+    // processFilterData(cars) {
+    //     let makes = new Set();
+    //     let dealers = new Set();
+    //     let years = new Set();
+    //     let minPrice = Infinity, maxPrice = -Infinity;
+    //     let minMileage = Infinity, maxMileage = -Infinity;
+    //     let minYear = Infinity, maxYear = -Infinity;
 
-        cars.forEach(car => {
-            makes.add(car.make.name);
-            dealers.add(car.dealer.name);
-            years.add(car.year);
+    //     cars.forEach(car => {
+    //         makes.add(car.make.name);
+    //         dealers.add(car.dealer.name);
+    //         years.add(car.year);
 
-            minPrice = Math.min(minPrice, car.listingPrice);
-            maxPrice = Math.max(maxPrice, car.listingPrice);
+    //         minPrice = Math.min(minPrice, car.listingPrice);
+    //         maxPrice = Math.max(maxPrice, car.listingPrice);
 
-            minMileage = Math.min(minMileage, car.mileage);
-            maxMileage = Math.max(maxMileage, car.mileage);
+    //         minMileage = Math.min(minMileage, car.mileage);
+    //         maxMileage = Math.max(maxMileage, car.mileage);
 
-            minYear = Math.min(minYear, car.year);
-            maxYear = Math.max(maxYear, car.year);
-        });
+    //         minYear = Math.min(minYear, car.year);
+    //         maxYear = Math.max(maxYear, car.year);
+    //     });
 
-        return {
-            makes: Array.from(makes),
-            dealers: Array.from(dealers),
-            years: Array.from(years),
+    //     return {
+    //         makes: Array.from(makes),
+    //         dealers: Array.from(dealers),
+    //         years: Array.from(years),
 
-            yearRange: { min: minYear, max: maxYear },
-            priceRange: { min: minPrice, max: maxPrice },
-            mileageRange: { min: minMileage, max: maxMileage }
-        };
-    }
+    //         yearRange: { min: minYear, max: maxYear },
+    //         priceRange: { min: minPrice, max: maxPrice },
+    //         mileageRange: { min: minMileage, max: maxMileage }
+    //     };
+    // }
 
-    onFilterChange(filterType, value) {
-        this.setState(prevState => {
-            let newFilters = { ...prevState.filters }
+    // onFilterChange(filterType, value) {
+    //     this.setState(prevState => {
+    //         let newFilters = { ...prevState.filters }
 
-            // Apply validation rules based on filterName
-            if (filterName === 'selectedYear') {
-                if (value.min !== undefined) { // If min year is being updated
-                    newFilters.selectedYear.min = Math.min(value.min, newFilters.selectedYear.max);
-                }
-                if (value.max !== undefined) { // If max year is being updated
-                    newFilters.selectedYear.max = Math.max(value.max, newFilters.selectedYear.min);
-                }
-            } else if (filterName === 'selectedPrice') {
-                if (value.min !== undefined) {
-                    newFilters.selectedPrice.min = Math.min(value.min, newFilters.selectedPrice.max);
-                }
-                if (value.max !== undefined) {
-                    newFilters.selectedPrice.max = Math.max(value.max, newFilters.selectedPrice.min);
-                }
-            } else if (filterName === 'selectedMileage') {
-                if (value.min !== undefined) {
-                    newFilters.selectedMileage.min = Math.min(value.min, newFilters.selectedMileage.max);
-                }
-                if (value.max !== undefined) {
-                    newFilters.selectedMileage.max = Math.max(value.max, newFilters.selectedMileage.min);
-                }
-            } else {
-                newFilters[filterName] = value; // For other filters
-            }
+    //         // Apply validation rules based on filterName
+    //         if (filterName === 'selectedYear') {
+    //             if (value.min !== undefined) { // If min year is being updated
+    //                 newFilters.selectedYear.min = Math.min(value.min, newFilters.selectedYear.max);
+    //             }
+    //             if (value.max !== undefined) { // If max year is being updated
+    //                 newFilters.selectedYear.max = Math.max(value.max, newFilters.selectedYear.min);
+    //             }
+    //         } else if (filterName === 'selectedPrice') {
+    //             if (value.min !== undefined) {
+    //                 newFilters.selectedPrice.min = Math.min(value.min, newFilters.selectedPrice.max);
+    //             }
+    //             if (value.max !== undefined) {
+    //                 newFilters.selectedPrice.max = Math.max(value.max, newFilters.selectedPrice.min);
+    //             }
+    //         } else if (filterName === 'selectedMileage') {
+    //             if (value.min !== undefined) {
+    //                 newFilters.selectedMileage.min = Math.min(value.min, newFilters.selectedMileage.max);
+    //             }
+    //             if (value.max !== undefined) {
+    //                 newFilters.selectedMileage.max = Math.max(value.max, newFilters.selectedMileage.min);
+    //             }
+    //         } else {
+    //             newFilters[filterName] = value; // For other filters
+    //         }
 
-            return { filters: newFilters };
-        });
-    }
+    //         return { filters: newFilters };
+    //     });
+    // }
 
 
     render() {
         return (
             <div className="container-fluid">
-                <Filter
-                    filterData={this.state.filterData}
-                    currentFilters={this.state.filters}
-                    onFilterChange={this.onFilterChange}
-                />
                 <div className="row">
                     {this.state.cars.map((car, index) => {
                         return (
