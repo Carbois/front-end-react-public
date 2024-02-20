@@ -1,5 +1,7 @@
 import React from 'react';
-import Card from './components/Card'; // Adjust the path if necessary
+import Card from './components/Card'; 
+import ReactDOM from 'react-dom';
+// Adjust the path if necessary
 //import Filter from './components/Filter'; // Adjust the path if necessary
 
 
@@ -206,5 +208,5 @@ class App extends React.Component {
     }
 }
 
-
+ReactDOM.render(<App />, document.getElementById('app'));
 export default App; // This line is important
