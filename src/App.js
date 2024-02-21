@@ -166,9 +166,6 @@ class App extends React.Component {
                 selectedMileage: { min: 0, max: 0 },
             }
         };
-
-        // Bind the onFilterChange method to the App component
-        this.onFilterChange = this.onFilterChange.bind(this);
     }
 
     componentDidMount() {
@@ -221,18 +218,6 @@ class App extends React.Component {
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
                 this.setState({ cars: data.data.cars });
-                const filterData = this.processFilterData(data.data.cars);
-                this.setState(prevState => ({
-                    filterData: filterData,
-                    filters: {
-                        selectedMake: prevState.filters.selectedMake,
-                        selectedDealer: prevState.filters.selectedDealer,
-                        selectedYear: { min: filterData.yearRange.min, max: filterData.yearRange.max },
-                        selectedPrice: { min: filterData.priceRange.min, max: filterData.priceRange.max },
-                        selectedMileage: { min: filterData.mileageRange.min, max: filterData.mileageRange.max }
-                    }
-                })
-                );
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
@@ -311,11 +296,6 @@ class App extends React.Component {
     render() {
         return (
             <div className="container-fluid">
-                <Filter 
-                    filterData={this.state.filterData}
-                    currentFilters={this.state.filters}
-                    onFilterChange={this.onFilterChange}
-                />
                 <div className="row">
                     {this.state.cars.map((car, index) => {
                         return (
