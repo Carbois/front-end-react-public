@@ -295,36 +295,43 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row">
-                    {this.state.cars.map((car, index) => {
-                        return (
-                            <div key={index} className="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
-                                <Card
-                                    is_verified={car.dealer.isVerified}
-                                    is_dealer={car.isDealer}
-                                    is_premier_dealer={car.dealer.isPremierDealer}
-                                    carfax={car.carfax}
-                                    title={car.name}
-                                    price={car.listingPrice}
-                                    mileage={car.mileage}
-                                    exterior_color={car.exteriorColor}
-                                    interior_color={car.interiorColor}
-                                    state={car.dealer.state}
-                                    city={car.dealer.city}
-                                    zipcode={car.dealer.zip}
-                                    drive_type={car.driveType}
-                                    body_style=""
-                                    options_and_description=""
-                                    year={car.year}
-                                    make={car.make.name}
-                                    model={car.model}
-                                    trim=""
-                                    image={car.image}
-                                />
-                            </div>
-                        );
-                    })}
+            <div>
+                <Filter
+                    filterData={this.state.filterData}
+                    currentFilters={this.state.filters}
+                    onFilterChange={this.onFilterChange}
+                />
+                <div className="container-fluid">
+                    <div className="row">
+                        {this.state.cars.map((car, index) => {
+                            return (
+                                <div key={index} className="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
+                                    <Card
+                                        is_verified={car.dealer.isVerified}
+                                        is_dealer={car.isDealer}
+                                        is_premier_dealer={car.dealer.isPremierDealer}
+                                        carfax={car.carfax}
+                                        title={car.name}
+                                        price={car.listingPrice}
+                                        mileage={car.mileage}
+                                        exterior_color={car.exteriorColor}
+                                        interior_color={car.interiorColor}
+                                        state={car.dealer.state}
+                                        city={car.dealer.city}
+                                        zipcode={car.dealer.zip}
+                                        drive_type={car.driveType}
+                                        body_style=""
+                                        options_and_description=""
+                                        year={car.year}
+                                        make={car.make.name}
+                                        model={car.model}
+                                        trim=""
+                                        image={car.image}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         )
