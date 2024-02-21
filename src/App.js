@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function Card(props) {
     return (
-        <div className="listing-item" verifiedSeller={props.is_verified} isDealer={props.is_dealer} isPremierDealer={props.is_premier_dealer} carfax={props.carfax}>
+        <div className="listing-item" verifiedseller={props.is_verified} isdealer={props.is_dealer} ispremierdealer={props.is_premier_dealer} carfax={props.carfax}>
             <div className="listing-image">
                 <img src={props.image} alt="" />
             </div>
