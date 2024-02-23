@@ -230,6 +230,7 @@ class App extends React.Component {
                         selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
                     }
                 });
+                console.log("Filter data: ", this.state.filterData);
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
@@ -247,10 +248,15 @@ class App extends React.Component {
         cars.forEach(car => {
             makes.add(car.make.name);
             dealers.add(car.dealer.name);
-            years.add(car.year);
 
-            minPrice = Math.min(minPrice, car.listingPrice);
-            maxPrice = Math.max(maxPrice, car.listingPrice);
+            // set year to a number instead of a string
+            years.add(parseInt(car.year, 10));
+
+            // set price to a number instead of a string
+            price = parseInt(car.listingPrice, 10);
+
+            minPrice = Math.min(minPrice, price);
+            maxPrice = Math.max(maxPrice, price);
 
             minMileage = Math.min(minMileage, car.mileage);
             maxMileage = Math.max(maxMileage, car.mileage);
