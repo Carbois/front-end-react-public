@@ -218,6 +218,8 @@ class App extends React.Component {
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
                 this.setState({ cars: data.data.cars });
+                //use processFilterData() to process the data and set the state
+                this.setState({ filterData: this.processFilterData(data.data.cars) });
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
