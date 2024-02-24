@@ -244,6 +244,7 @@ class App extends React.Component {
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
         let minYear = Infinity, maxYear = -Infinity;
+        
 
         cars.forEach(car => {
             makes.add(car.make.name);
@@ -253,7 +254,7 @@ class App extends React.Component {
             years.add(parseInt(car.year, 10));
 
             // set price to a number instead of a string
-            price = parseInt(car.listingPrice, 10);
+            let price = parseInt(car.listingPrice, 10);
             console.log(price)
             minPrice = Math.min(minPrice, price);
             maxPrice = Math.max(maxPrice, price);
