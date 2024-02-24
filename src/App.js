@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function Card(props) {
     return (
-        <div className="listing-item" verifiedseller={props.is_verified} isdealer={props.is_dealer} ispremierdealer={props.is_premier_dealer} carfax={props.carfax}>
+        <div className="listing-item" carfax={props.carfax}>
             <div className="listing-image">
                 <img src={props.image} alt="" />
             </div>
@@ -276,7 +276,7 @@ class App extends React.Component {
         };
     }
 
-    onFilterChange(filterType, value) {
+    onFilterChange(filterName, value) {
         this.setState(prevState => {
             let newFilters = { ...prevState.filters }
 
