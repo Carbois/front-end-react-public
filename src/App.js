@@ -166,6 +166,9 @@ class App extends React.Component {
                 selectedMileage: { min: 0, max: 0 },
             }
         };
+
+         // Binding onFilterChange method
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
 
     componentDidMount() {
