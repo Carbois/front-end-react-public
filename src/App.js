@@ -254,7 +254,7 @@ class App extends React.Component {
 
             // set price to a number instead of a string
             price = parseInt(car.listingPrice, 10);
-
+            console.log(price)
             minPrice = Math.min(minPrice, price);
             maxPrice = Math.max(maxPrice, price);
 
