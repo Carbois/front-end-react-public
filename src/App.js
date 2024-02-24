@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactSlider from 'react-slider';
 
 function Card(props) {
     return (
@@ -93,29 +94,26 @@ function Filter(props) {
             {/* Price Filter */}
             <div>
                 <label>
-                    Min Price:
-                    <input
-                        type="range"
+                    Price Range:
+                    <ReactSlider
+                        className="horizontal-slider"
+                        thumbClassName="example-thumb"
+                        trackClassName="example-track"
+                        onChange={(value) => {
+                            props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
+                        }}
                         min={minPrice}
                         max={maxPrice}
-                        value={props.currentFilters.selectedPrice.min}
-                        onChange={(e) => props.onFilterChange('selectedPrice', { ...props.currentFilters.selectedPrice, min: parseInt(e.target.value, 10) })}
+                        value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
                     />
-                    <span>{props.currentFilters.selectedPrice.min}</span>
-                </label>
-                <label>
-                    Max Price:
-                    <input
-                        type="range"
-                        min={minPrice}
-                        max={maxPrice}
-                        value={props.currentFilters.selectedPrice.max}
-                        onChange={(e) => props.onFilterChange('selectedPrice', { ...props.currentFilters.selectedPrice, max: parseInt(e.target.value, 10) })}
-                    />
-                    <span>{props.currentFilters.selectedPrice.max}</span>
+                    <div>
+                        Min Price: {props.currentFilters.selectedPrice.min}
+                        <br/>
+                        Max Price: {props.currentFilters.selectedPrice.max}
+                    </div>
                 </label>
             </div>
-
+            
             {/* Mileage Filter */}
             <div>
                 <label>
@@ -167,7 +165,7 @@ class App extends React.Component {
             }
         };
 
-         // Binding onFilterChange method
+        // Binding onFilterChange method
         this.onFilterChange = this.onFilterChange.bind(this);
     }
 
@@ -233,7 +231,6 @@ class App extends React.Component {
                         selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
                     }
                 });
-                console.log("Filter data: ", this.state.filterData);
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
@@ -258,7 +255,7 @@ class App extends React.Component {
 
             // set price to a number instead of a string
             let price = parseInt(car.listingPrice, 10);
-            console.log(price)
+            
             minPrice = Math.min(minPrice, price);
             maxPrice = Math.max(maxPrice, price);
 
