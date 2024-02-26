@@ -12,7 +12,7 @@ function Card(props) {
             <div className="listing-info">
                 <h4 className="listing-title">{props.title}</h4>
                 <p className="listing-price"><strong>价格:</strong> ${props.price}</p>
-                <p className="listing-year"><strong>年份</strong>${props.year}</p>
+                <p className="listing-year"><strong>年份</strong>{props.year}</p>
                 <p className="listing-mileage"><strong>里程:</strong> {props.mileage}</p>
                 <p className="exterior-color"><strong>外观颜色:</strong> {props.exterior_color}</p>
                 <p className="interior-color"><strong>内饰颜色:</strong> {props.interior_color}</p>
@@ -32,8 +32,8 @@ function Card(props) {
                     <span>城市: {props.city}</span>
                     <span>zipcode: {props.zipcode}</span>
                     <span className="drive-type">驱动类型: {props.drive_type}</span>
-                    <span className="body-style">车身类型: {props.body_style}</span>
-                    <span className="options-and-description">选配/套餐: {props.options_and_description}</span>
+                    {/* <span className="body-style">车身类型: {props.body_style}</span>
+                    <span className="options-and-description">选配/套餐: {props.options_and_description}</span> */}
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@ function Filter(props) {
     return (
         <div className="filter-container">
             {/* Year, Make, Dealer Filters */}
-            <label>
+            <label className="year-dropdown">
                 Min Year:
                 <select name="minYear" 
                 value={props.currentFilters.selectedYears.min}
@@ -71,7 +71,7 @@ function Filter(props) {
                     {yearsOptions}
                 </select>
             </label>
-            <label>
+            <label className="year-dropdown">
                 Max Year:
                 <select name="maxYear" 
                 value={props.currentFilters.selectedYears.max}
@@ -80,7 +80,7 @@ function Filter(props) {
                 </select>
             </label>
 
-            <label>
+            <label className="makeDropdown">
                 Make:
                 <select name="make" onChange={(e) => props.onFilterChange('selectedMake', e.target.value)}>
                     <option value="">All Makes</option>
@@ -88,7 +88,7 @@ function Filter(props) {
                 </select>
             </label>
 
-            <label>
+            <label className="dealerDropdown">
                 Dealer:
                 <select name="dealer" onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
                     <option value="">All Dealers</option>
@@ -97,7 +97,7 @@ function Filter(props) {
             </label>
 
             {/* Price Filter */}
-            <div>
+            <div className="priceSlider">
                 <label>
                     Price:
                     <Slider
@@ -123,7 +123,7 @@ function Filter(props) {
             </div>
 
             {/* Mileage Filter */}
-            <div>
+            <div className="mileageSlider">
                 <label>
                     Mileage:
                     <Slider
@@ -147,6 +147,10 @@ function Filter(props) {
                     </label>
                 </label>
             </div>
+
+            {/* Reset Filters Button */}
+            <button onClick={props.onResetFilters}>Reset Filters</button>
+            
         </div>
     );
 }
@@ -175,6 +179,7 @@ class App extends React.Component {
 
         // Binding onFilterChange method
         this.onFilterChange = this.onFilterChange.bind(this);
+        this.resetFilters = this.resetFilters.bind(this);
     }
 
     componentDidMount() {
@@ -332,6 +337,18 @@ class App extends React.Component {
         })
     }
 
+    resetFilters() {
+        this.setState({
+            filters: {
+                selectedMake: '',
+                selectedDealer: '',
+                selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
+                selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
+                selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
+            }
+        });
+    }
+    
 
     render() {
         const filteredCars = this.filterCars(this.state.cars, this.state.filters);
