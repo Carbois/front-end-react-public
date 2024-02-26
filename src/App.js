@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
-const { createSliderWithTooltip } = Slider;
-const Range = createSliderWithTooltip(Slider.Range);
 
 function Card(props) {
     return (
@@ -97,7 +95,8 @@ function Filter(props) {
             <div>
                 <label>
                     Price Range:
-                    <Range
+                    <Slider
+                        range
                         min={minPrice}
                         max={maxPrice}
                         defaultValue={[minPrice, maxPrice]}
