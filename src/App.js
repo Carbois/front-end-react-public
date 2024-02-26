@@ -100,7 +100,7 @@ function Filter(props) {
                         range
                         min={minPrice}
                         max={maxPrice}
-                        defaultValue={[minPrice, maxPrice]}
+                        value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
                         pushable={5000}
                         allowCross={false}
                         onChange={value => {
