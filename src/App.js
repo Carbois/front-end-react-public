@@ -115,26 +115,21 @@ function Filter(props) {
 
             {/* Mileage Filter */}
             <div>
+                <Slider
+                    range
+                    min={minMileage}
+                    max={maxMileage}
+                    defaultValue={[minMileage, maxMileage]}
+                    onChange={value => {
+                        props.onFilterChange('selectedMileage', { min: value[0], max: value[1] });
+                    }}
+                />
                 <label>
                     Min Mileage:
-                    <input
-                        type="range"
-                        min={minMileage}
-                        max={maxMileage}
-                        value={props.currentFilters.selectedMileage.min}
-                        onChange={(e) => props.onFilterChange('selectedMileage', { ...props.currentFilters.selectedMileage, min: parseInt(e.target.value, 10) })}
-                    />
                     <span>{props.currentFilters.selectedMileage.min}</span>
                 </label>
                 <label>
                     Max Mileage:
-                    <input
-                        type="range"
-                        min={minMileage}
-                        max={maxMileage}
-                        value={props.currentFilters.selectedMileage.max}
-                        onChange={(e) => props.onFilterChange('selectedMileage', { ...props.currentFilters.selectedMileage, max: parseInt(e.target.value, 10) })}
-                    />
                     <span>{props.currentFilters.selectedMileage.max}</span>
                 </label>
             </div>
