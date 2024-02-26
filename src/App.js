@@ -40,6 +40,18 @@ function Card(props) {
 }
 
 function Filter(props) {
+    // Using React's useEffect hook to handle component updates
+    React.useEffect(() => {
+        // If the priceRange from props is not yet loaded, don't do anything
+        if (!props.filterData.priceRange) return;
+
+        // If the priceRange is loaded, set the slider to the correct values
+        const { min, max } = props.filterData.priceRange;
+        if (min !== props.currentFilters.selectedPrice.min || max !== props.currentFilters.selectedPrice.max) {
+            props.onFilterChange('selectedPrice', { min, max });
+        }
+    }, [props.filterData.priceRange]); // This effect runs whenever filterData.priceRange changes
+
     // Safely access filter data with checks
     const yearsOptions = props.filterData.years
         ? props.filterData.years.map(year => <option key={year} value={year}>{year}</option>)
@@ -55,12 +67,7 @@ function Filter(props) {
 
     // Using default values for sliders if data is not yet loaded
     const minPrice = props.filterData.priceRange ? props.filterData.priceRange.min : 0;
-    console.log(props.filterData.priceRange)
-    console.log("minPrice: ")
-    console.log(minPrice)
     const maxPrice = props.filterData.priceRange ? props.filterData.priceRange.max : 0;
-    console.log("maxPrice: ")
-    console.log(maxPrice)
     const minMileage = props.filterData.mileageRange ? props.filterData.mileageRange.min : 0;
     const maxMileage = props.filterData.mileageRange ? props.filterData.mileageRange.max : 0;
 
