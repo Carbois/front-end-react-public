@@ -367,6 +367,7 @@ class App extends React.Component {
                     onFilterChange={this.onFilterChange}
                     onResetFilters={this.resetFilters}
                 />
+                
                 <div className="container-fluid">
                     <div className="row">
                         {filteredCars.map((car, index) => {
