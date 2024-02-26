@@ -40,18 +40,6 @@ function Card(props) {
 }
 
 function Filter(props) {
-    // Using React's useEffect hook to handle component updates
-    React.useEffect(() => {
-        // If the priceRange from props is not yet loaded, don't do anything
-        if (!props.filterData.priceRange) return;
-
-        // If the priceRange is loaded, set the slider to the correct values
-        const { min, max } = props.filterData.priceRange;
-        if (min !== props.currentFilters.selectedPrice.min || max !== props.currentFilters.selectedPrice.max) {
-            props.onFilterChange('selectedPrice', { min, max });
-        }
-    }, [props.filterData.priceRange]); // This effect runs whenever filterData.priceRange changes
-
     // Safely access filter data with checks
     const yearsOptions = props.filterData.years
         ? props.filterData.years.map(year => <option key={year} value={year}>{year}</option>)
@@ -228,19 +216,15 @@ class App extends React.Component {
             .then(response => response.json())
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
-                this.setState({ cars: data.data.cars });
-                //use processFilterData() to process the data and set the state
-                this.setState({ filterData: this.processFilterData(data.data.cars) });
-                //set initial filters
-                this.setState({
-                    filters: {
-                        selectedMake: '',
-                        selectedDealer: '',
-                        selectedYear: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
-                        selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
-                        selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
-                    }
-                });
+                this.setState({ cars: data.data.cars,
+                                filterData: this.processFilterData(data.data.cars),
+                                filters: {
+                                    selectedMake: '',
+                                    selectedDealer: '',
+                                    selectedYear: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
+                                    selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
+                                    selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
+                                }});
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
