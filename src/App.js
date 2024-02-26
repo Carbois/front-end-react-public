@@ -56,9 +56,11 @@ function Filter(props) {
     // Using default values for sliders if data is not yet loaded
     const minPrice = props.filterData.priceRange ? props.filterData.priceRange.min : 0;
     console.log(props.filterData.priceRange)
-    console.log("minPrice: "+ toString(minPrice))
+    console.log("minPrice: ")
+    console.log(minPrice)
     const maxPrice = props.filterData.priceRange ? props.filterData.priceRange.max : 0;
-    console.log("maxPrice: "+ toString(maxPrice))
+    console.log("maxPrice: ")
+    console.log(maxPrice)
     const minMileage = props.filterData.mileageRange ? props.filterData.mileageRange.min : 0;
     const maxMileage = props.filterData.mileageRange ? props.filterData.mileageRange.max : 0;
 
