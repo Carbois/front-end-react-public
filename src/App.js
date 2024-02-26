@@ -82,7 +82,9 @@ function Filter(props) {
 
             <label className="makeDropdown">
                 Make:
-                <select name="make" onChange={(e) => props.onFilterChange('selectedMake', e.target.value)}>
+                <select name="make" 
+                value={props.currentFilters.selectedMake}
+                onChange={(e) => props.onFilterChange('selectedMake', e.target.value)}>
                     <option value="">All Makes</option>
                     {makesOptions}
                 </select>
@@ -90,7 +92,9 @@ function Filter(props) {
 
             <label className="dealerDropdown">
                 Dealer:
-                <select name="dealer" onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
+                <select name="dealer" 
+                value={props.currentFilters.selectedDealer}
+                onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
                     <option value="">All Dealers</option>
                     {dealersOptions}
                 </select>
