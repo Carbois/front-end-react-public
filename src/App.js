@@ -100,8 +100,7 @@ function Filter(props) {
                         min={minPrice}
                         max={maxPrice}
                         defaultValue={[minPrice, maxPrice]}
-                        tipFormatter={value => `${value}`}
-                        onAfterChange={value => {
+                        onChange={value => {
                             props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
                         }}
                     />
