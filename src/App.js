@@ -216,15 +216,19 @@ class App extends React.Component {
             .then(response => response.json())
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
-                this.setState({ cars: data.data.cars,
-                                filterData: this.processFilterData(data.data.cars),
-                                filters: {
-                                    selectedMake: '',
-                                    selectedDealer: '',
-                                    selectedYear: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
-                                    selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
-                                    selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
-                                }});
+                this.setState({ cars: data.data.cars });
+                //use processFilterData() to process the data and set the state
+                this.setState({ filterData: this.processFilterData(data.data.cars) });
+                //set initial filters
+                this.setState({
+                    filters: {
+                        selectedMake: '',
+                        selectedDealer: '',
+                        selectedYear: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
+                        selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
+                        selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
+                    }
+                });
             })
             .catch(error => {
                 console.error("Error fetching data: ", error);
