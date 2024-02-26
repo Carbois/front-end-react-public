@@ -11,8 +11,8 @@ function Card(props) {
             </div>
             <div className="listing-info">
                 <h4 className="listing-title">{props.title}</h4>
-                <p className="listing-year"><strong>年份</strong>${props.year}</p>
                 <p className="listing-price"><strong>价格:</strong> ${props.price}</p>
+                <p className="listing-year"><strong>年份</strong>${props.year}</p>
                 <p className="listing-mileage"><strong>里程:</strong> {props.mileage}</p>
                 <p className="exterior-color"><strong>外观颜色:</strong> {props.exterior_color}</p>
                 <p className="interior-color"><strong>内饰颜色:</strong> {props.interior_color}</p>
