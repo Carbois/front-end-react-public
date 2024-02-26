@@ -94,50 +94,53 @@ function Filter(props) {
 
             {/* Price Filter */}
             <div>
-                Price:
-                <Slider
-                    range
-                    min={minPrice}
-                    max={maxPrice}
-                    value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
-                    pushable={5000}
-                    allowCross={false}
-                    onChange={value => {
-                        props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
-                    }}
-                />
                 <label>
-                    Min Price:
-                    <span>{props.currentFilters.selectedPrice.min} </span>
+                    Price:
+                    <Slider
+                        range
+                        min={minPrice}
+                        max={maxPrice}
+                        value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
+                        pushable={5000}
+                        allowCross={false}
+                        onChange={value => {
+                            props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
+                        }}
+                    />
+                    <label>
+                        Min Price:
+                        <span>{props.currentFilters.selectedPrice.min} </span>
+                    </label>
+                    <label>
+                        Max Price:
+                        <span>{props.currentFilters.selectedPrice.max}</span>
+                    </label>
                 </label>
-                <label>
-                    Max Price:
-                    <span>{props.currentFilters.selectedPrice.max}</span>
-                </label>
-
             </div>
 
             {/* Mileage Filter */}
             <div>
-                Mileage:
-                <Slider
-                    range
-                    min={minMileage}
-                    max={maxMileage}
-                    pushable={1000}
-                    allowCross={false}
-                    value={[props.currentFilters.selectedMileage.min, props.currentFilters.selectedMileage.max]}
-                    onChange={value => {
-                        props.onFilterChange('selectedMileage', { min: value[0], max: value[1] });
-                    }}
-                />
                 <label>
-                    Min Mileage:
-                    <span>{props.currentFilters.selectedMileage.min} </span>
-                </label>
-                <label>
-                    Max Mileage:
-                    <span>{props.currentFilters.selectedMileage.max}</span>
+                    Mileage:
+                    <Slider
+                        range
+                        min={minMileage}
+                        max={maxMileage}
+                        pushable={1000}
+                        allowCross={false}
+                        value={[props.currentFilters.selectedMileage.min, props.currentFilters.selectedMileage.max]}
+                        onChange={value => {
+                            props.onFilterChange('selectedMileage', { min: value[0], max: value[1] });
+                        }}
+                    />
+                    <label>
+                        Min Mileage:
+                        <span>{props.currentFilters.selectedMileage.min}</span>
+                    </label>
+                    <label>
+                        Max Mileage:
+                        <span>{props.currentFilters.selectedMileage.max}</span>
+                    </label>
                 </label>
             </div>
         </div>
