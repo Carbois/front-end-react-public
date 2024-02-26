@@ -64,14 +64,18 @@ function Filter(props) {
             {/* Year, Make, Dealer Filters */}
             <label>
                 Min Year:
-                <select name="minYear" onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, min: e.target.value })}>
+                <select name="minYear" 
+                value={props.currentFilters.selectedYear.min}
+                onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, min: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
 
             <label>
                 Max Year:
-                <select name="maxYear" onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, max: e.target.value })}>
+                <select name="maxYear" 
+                value={props.currentFilters.selectedYear.max}
+                onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, max: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
@@ -269,7 +273,7 @@ class App extends React.Component {
             minYear = Math.min(minYear, car.year);
             maxYear = Math.max(maxYear, car.year);
         });
-
+        console.log(maxYear)
         return {
             makes: Array.from(makes),
             dealers: Array.from(dealers),
