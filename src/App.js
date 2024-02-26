@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactSlider from 'react-slider';
+import Slider from 'rc-slider';
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
 
 function Card(props) {
     return (
@@ -95,16 +97,14 @@ function Filter(props) {
             <div>
                 <label>
                     Price Range:
-                    <ReactSlider
-                        className="horizontal-slider"
-                        thumbClassName="example-thumb"
-                        trackClassName="example-track"
-                        onChange={(value) => {
-                            props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
-                        }}
+                    <Range
                         min={minPrice}
                         max={maxPrice}
-                        value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
+                        defaultValue={[minPrice, maxPrice]}
+                        tipFormatter={value => `${value}`}
+                        onAfterChange={value => {
+                            props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
+                        }}
                     />
                     <div>
                         Min Price: {props.currentFilters.selectedPrice.min}
@@ -113,7 +113,7 @@ function Filter(props) {
                     </div>
                 </label>
             </div>
-            
+
             {/* Mileage Filter */}
             <div>
                 <label>
