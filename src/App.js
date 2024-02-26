@@ -149,8 +149,10 @@ function Filter(props) {
             </div>
 
             {/* Reset Filters Button */}
-            <button onClick={props.onResetFilters}>Reset Filters</button>
-            
+            <div>
+                <button onClick={props.onResetFilters}>Reset Filters</button>
+            </div>
+
         </div>
     );
 }
@@ -359,6 +361,7 @@ class App extends React.Component {
                     filterData={this.state.filterData}
                     currentFilters={this.state.filters}
                     onFilterChange={this.onFilterChange}
+                    onResetFilters={this.resetFilters}
                 />
                 <div className="container-fluid">
                     <div className="row">
