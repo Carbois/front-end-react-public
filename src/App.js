@@ -123,7 +123,7 @@ function Filter(props) {
                     max={maxMileage}
                     pushable={1000}
                     allowCross={false}
-                    value={[props.currentFilters.selectedMileage.min, props.currentFilters.selectedMileage.min]}
+                    value={[props.currentFilters.selectedMileage.min, props.currentFilters.selectedMileage.max]}
                     onChange={value => {
                         props.onFilterChange('selectedMileage', { min: value[0], max: value[1] });
                     }}
@@ -134,7 +134,7 @@ function Filter(props) {
                 </label>
                 <label>
                     Max Mileage:
-                    <span>{props.currentFilters.selectedMileage.min}</span>
+                    <span>{props.currentFilters.selectedMileage.max}</span>
                 </label>
             </div>
         </div>
