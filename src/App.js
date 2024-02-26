@@ -64,14 +64,17 @@ function Filter(props) {
             {/* Year, Make, Dealer Filters */}
             <label>
                 Min Year:
-                <select name="minYear" onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, min: e.target.value })}>
+                <select name="minYear" 
+                value={props.currentFilters.selectedYears.min}
+                onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, min: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
-
             <label>
                 Max Year:
-                <select name="maxYear" onChange={(e) => props.onFilterChange('selectedYear', { ...props.currentFilters.selectedYear, max: e.target.value })}>
+                <select name="maxYear" 
+                value={props.currentFilters.selectedYears.max}
+                onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, max: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
@@ -230,7 +233,7 @@ class App extends React.Component {
                     filters: {
                         selectedMake: '',
                         selectedDealer: '',
-                        selectedYear: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
+                        selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                         selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                         selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
                     }
@@ -269,11 +272,12 @@ class App extends React.Component {
             minYear = Math.min(minYear, car.year);
             maxYear = Math.max(maxYear, car.year);
         });
+        
         console.log(maxYear)
         return {
-            makes: Array.from(makes),
-            dealers: Array.from(dealers),
-            years: Array.from(years),
+            makes: Array.from(makes).sort(),
+            dealers: Array.from(dealers).sort(),
+            years: Array.from(years).sort((a,b) => a-b),
 
             yearRange: { min: minYear, max: maxYear },
             priceRange: { min: minPrice, max: maxPrice },
@@ -286,12 +290,12 @@ class App extends React.Component {
             let newFilters = { ...prevState.filters }
 
             // Apply validation rules based on filterName
-            if (filterName === 'selectedYear') {
+            if (filterName === 'selectedyears') {
                 if (value.min !== undefined) { // If min year is being updated
-                    newFilters.selectedYear.min = Math.min(value.min, newFilters.selectedYear.max);
+                    newFilters.selectedYears.min = Math.min(value.min, newFilters.selectedYears.max);
                 }
                 if (value.max !== undefined) { // If max year is being updated
-                    newFilters.selectedYear.max = Math.max(value.max, newFilters.selectedYear.min);
+                    newFilters.selectedYears.max = Math.max(value.max, newFilters.selectedYears.min);
                 }
             } else if (filterName === 'selectedPrice') {
                 if (value.min !== undefined) {
