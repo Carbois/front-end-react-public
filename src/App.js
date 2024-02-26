@@ -94,29 +94,32 @@ function Filter(props) {
 
             {/* Price Filter */}
             <div>
+                Price:
+                <Slider
+                    range
+                    min={minPrice}
+                    max={maxPrice}
+                    value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
+                    pushable={5000}
+                    allowCross={false}
+                    onChange={value => {
+                        props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
+                    }}
+                />
                 <label>
-                    Price Range:
-                    <Slider
-                        range
-                        min={minPrice}
-                        max={maxPrice}
-                        value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
-                        pushable={true}
-                        allowCross={false}
-                        onChange={value => {
-                            props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
-                        }}
-                    />
-                    <div>
-                        Min Price: {props.currentFilters.selectedPrice.min}
-                        <br/>
-                        Max Price: {props.currentFilters.selectedPrice.max}
-                    </div>
+                    Min Price:
+                    <span>{props.currentFilters.selectedPrice.min} </span>
                 </label>
+                <label>
+                    Max Price:
+                    <span>{props.currentFilters.selectedPrice.max}</span>
+                </label>
+
             </div>
 
             {/* Mileage Filter */}
             <div>
+                Mileage:
                 <Slider
                     range
                     min={minMileage}
@@ -130,7 +133,7 @@ function Filter(props) {
                 />
                 <label>
                     Min Mileage:
-                    <span>{props.currentFilters.selectedMileage.min}</span>
+                    <span>{props.currentFilters.selectedMileage.min} </span>
                 </label>
                 <label>
                     Max Mileage:
@@ -242,7 +245,7 @@ class App extends React.Component {
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
         let minYear = Infinity, maxYear = -Infinity;
-        
+
 
         cars.forEach(car => {
             makes.add(car.make.name);
@@ -253,7 +256,7 @@ class App extends React.Component {
 
             // set price to a number instead of a string
             let price = parseInt(car.listingPrice, 10);
-            
+
             minPrice = Math.min(minPrice, price);
             maxPrice = Math.max(maxPrice, price);
 
