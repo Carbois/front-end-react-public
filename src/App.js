@@ -101,7 +101,7 @@ function Filter(props) {
                         min={minPrice}
                         max={maxPrice}
                         value={[props.currentFilters.selectedPrice.min, props.currentFilters.selectedPrice.max]}
-                        pushable={5000}
+                        pushable={true}
                         allowCross={false}
                         onChange={value => {
                             props.onFilterChange('selectedPrice', { min: value[0], max: value[1] });
@@ -123,7 +123,7 @@ function Filter(props) {
                     max={maxMileage}
                     pushable={1000}
                     allowCross={false}
-                    defaultValue={[minMileage, maxMileage]}
+                    value={[props.currentFilters.selectedMileage.min, props.currentFilters.selectedMileage.min]}
                     onChange={value => {
                         props.onFilterChange('selectedMileage', { min: value[0], max: value[1] });
                     }}
@@ -134,7 +134,7 @@ function Filter(props) {
                 </label>
                 <label>
                     Max Mileage:
-                    <span>{props.currentFilters.selectedMileage.max}</span>
+                    <span>{props.currentFilters.selectedMileage.min}</span>
                 </label>
             </div>
         </div>
