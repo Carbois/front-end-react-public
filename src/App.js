@@ -319,8 +319,22 @@ class App extends React.Component {
         });
     }
 
+    filterCars(cars,filters){
+        return cars.filter(car => {
+            const matchesYear = car.year >= filters.selectedYears.min && car.year <= filters.selectedYears.max;
+            const matchesMake = !filters.selectedMake || car.make.name === filters.selectedMake;
+            const matchesDealer = !filters.selectedDealer || car.dealer.name === filters.selectedDealer;
+            const matchesPrice = car.listingPrice >= filters.selectedPrice.min && car.listingPrice <= filters.selectedPrice.max;
+            const matchesMileage = car.mileage >= filters.selectedMileage.min && car.mileage <= filters.selectedMileage.max;
+            return matchesYear && matchesMake && matchesDealer && matchesPrice && matchesMileage;
+
+        })
+    }
+
 
     render() {
+        const filteredCars = this.filterCars(this.state.cars, this.state.filters);
+
         return (
             <div>
                 <Filter
@@ -330,7 +344,7 @@ class App extends React.Component {
                 />
                 <div className="container-fluid">
                     <div className="row">
-                        {this.state.cars.map((car, index) => {
+                        {filteredCars.map((car, index) => {
                             return (
                                 <div key={index} className="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
                                     <Card
