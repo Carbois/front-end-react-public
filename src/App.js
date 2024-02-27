@@ -172,6 +172,8 @@ function CarModal({ car, onClose }) {
     // If there is no car data, don't render the modal
     if (!car) return null;
 
+    const imagesArray = car.imagesArray ? JSON.parse(car.imagesArray) : [];
+
     return (
         <div className="car-modal-backdrop" onClick={onClose}>
             <div className="car-modal-content" onClick={(e) => e.stopPropagation()}>
