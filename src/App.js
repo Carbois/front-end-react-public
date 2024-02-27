@@ -408,13 +408,11 @@ class App extends React.Component {
     }
 
     openModal = (car) => {
-        document.getElementById('app').classList.add('blurred');
         this.setState({ showModal: true, selectedCar: car })
     }
 
 
     closeModal = () => {
-        document.getElementById('app').classList.remove('blurred');
         this.setState({ showModal: false, selectedCar: null })
     }
 
