@@ -191,15 +191,16 @@ function CarModal({ car, onClose }) {
                             <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
                             <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
                             {/* ... other details ... */}
+                            <form onSubmit={handleSubmit} className="contact-form">
+                                <input type="text" placeholder="Your name" required />
+                                <input type="email" placeholder="Your email" required />
+                                <input type="tel" placeholder="Your phone number" />
+                                <textarea placeholder="Your message"></textarea>
+                                <button type="submit">Submit</button>
+                            </form>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="contact-form">
-                            <input type="text" placeholder="Your name" required />
-                            <input type="email" placeholder="Your email" required />
-                            <input type="tel" placeholder="Your phone number" />
-                            <textarea placeholder="Your message"></textarea>
-                            <button type="submit">Submit</button>
-                        </form>
+
                     </div>
                     <div className="car-images">
                         {imagesArray.map((image, index) => (
