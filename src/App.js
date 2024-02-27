@@ -178,10 +178,6 @@ function CarModal({ car, onClose }) {
     return (
         <div className="car-modal-backdrop" onClick={onClose}>
             <div className="car-modal-content" onClick={(e) => e.stopPropagation()}>
-                <div className="car-modal-header">
-                    <h2>{car.name}</h2>
-                    <button className="car-modal-close" onClick={onClose}>&times;</button>
-                </div>
                 <div className="car-modal-body">
                     <div className="car-images">
                         {imagesArray.map((image, index) => (
@@ -189,6 +185,10 @@ function CarModal({ car, onClose }) {
                         ))}
                     </div>
                     <div className="car-details">
+                        <div className="car-modal-header">
+                            <h2>{car.name}</h2>
+                            <button className="car-modal-close" onClick={onClose}>&times;</button>
+                        </div>
                         <p><strong>价格:</strong> ${car.listingPrice}</p>
                         <p><strong>年份:</strong> {car.year}</p>
                         <p><strong>里程:</strong> {car.mileage}</p>
