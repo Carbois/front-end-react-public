@@ -179,7 +179,7 @@ function CarModal({ car, onClose }) {
         <div className="car-modal-backdrop" onClick={onClose}>
             <div className="car-modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="car-modal-header">
-                    <h2>{car.title}</h2>
+                    <h2>{car.name}</h2>
                     <button className="car-modal-close" onClick={onClose}>&times;</button>
                 </div>
                 <div className="car-modal-body">
@@ -189,11 +189,11 @@ function CarModal({ car, onClose }) {
                         ))}
                     </div>
                     <div className="car-details">
-                        <p><strong>价格:</strong> ${car.price}</p>
+                        <p><strong>价格:</strong> ${car.listingPrice}</p>
                         <p><strong>年份:</strong> {car.year}</p>
                         <p><strong>里程:</strong> {car.mileage}</p>
-                        <p><strong>外观颜色:</strong> {car.exterior_color}</p>
-                        <p><strong>内饰颜色:</strong> {car.interior_color}</p>
+                        <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
+                        <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
                         {/* ... other details ... */}
                     </div>
                     <form onSubmit={handleSubmit} className="contact-form">
