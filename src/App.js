@@ -190,6 +190,7 @@ function CarModal({ car, onClose }) {
                         <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
                         <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
                         {/* ... other details ... */}
+                        <h2>联系卖家</h2>
                         <form onSubmit={handleSubmit} className="contact-form">
                             <input type="text" placeholder="Your name" required />
                             <input type="email" placeholder="Your email" required />
