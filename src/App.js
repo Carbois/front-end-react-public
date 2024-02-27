@@ -65,26 +65,26 @@ function Filter(props) {
             {/* Year, Make, Dealer Filters */}
             <label className="year-dropdown">
                 Min Year:
-                <select name="minYear" 
-                value={props.currentFilters.selectedYears.min}
-                onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, min: e.target.value })}>
+                <select name="minYear"
+                    value={props.currentFilters.selectedYears.min}
+                    onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, min: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
             <label className="year-dropdown">
                 Max Year:
-                <select name="maxYear" 
-                value={props.currentFilters.selectedYears.max}
-                onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, max: e.target.value })}>
+                <select name="maxYear"
+                    value={props.currentFilters.selectedYears.max}
+                    onChange={(e) => props.onFilterChange('selectedyears', { ...props.currentFilters.selectedYears, max: e.target.value })}>
                     {yearsOptions}
                 </select>
             </label>
 
             <label className="makeDropdown">
                 Make:
-                <select name="make" 
-                value={props.currentFilters.selectedMake}
-                onChange={(e) => props.onFilterChange('selectedMake', e.target.value)}>
+                <select name="make"
+                    value={props.currentFilters.selectedMake}
+                    onChange={(e) => props.onFilterChange('selectedMake', e.target.value)}>
                     <option value="">All Makes</option>
                     {makesOptions}
                 </select>
@@ -92,9 +92,9 @@ function Filter(props) {
 
             <label className="dealerDropdown">
                 Dealer:
-                <select name="dealer" 
-                value={props.currentFilters.selectedDealer}
-                onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
+                <select name="dealer"
+                    value={props.currentFilters.selectedDealer}
+                    onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
                     <option value="">All Dealers</option>
                     {dealersOptions}
                 </select>
@@ -161,6 +161,53 @@ function Filter(props) {
     );
 }
 
+function CarModal({ car, onClose }) {
+    // Handle the form submission
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Process the form data
+        console.log("Form submitted");
+    };
+
+    // If there is no car data, don't render the modal
+    if (!car) return null;
+
+    return (
+        <div className="car-modal-backdrop" onClick={onClose}>
+            <div className="car-modal-content" onClick={(e) => e.stopPropagation()}>
+                <div className="car-modal-header">
+                    <h2>{car.title}</h2>
+                    <button className="car-modal-close" onClick={onClose}>&times;</button>
+                </div>
+                <div className="car-modal-body">
+                    <div className="car-images">
+                        {car.imagesArray.map((image, index) => (
+                            <img key={index} src={image} alt={`Car ${index}`} />
+                        ))}
+                    </div>
+                    <div className="car-details">
+                        <p><strong>价格:</strong> ${car.price}</p>
+                        <p><strong>年份:</strong> {car.year}</p>
+                        <p><strong>里程:</strong> {car.mileage}</p>
+                        <p><strong>外观颜色:</strong> {car.exterior_color}</p>
+                        <p><strong>内饰颜色:</strong> {car.interior_color}</p>
+                        {/* ... other details ... */}
+                    </div>
+                    <form onSubmit={handleSubmit} className="contact-form">
+                        <input type="text" placeholder="Your name" required />
+                        <input type="email" placeholder="Your email" required />
+                        <input type="tel" placeholder="Your phone number" />
+                        <textarea placeholder="Your message"></textarea>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
+
 class App extends React.Component {
     constructor() {
         super();
@@ -180,7 +227,9 @@ class App extends React.Component {
                 selectedYears: { min: 0, max: 0 },
                 selectedPrice: { min: 0, max: 0 },
                 selectedMileage: { min: 0, max: 0 },
-            }
+            },
+            showModal: false,
+            selectedCar: null
         };
 
         // Binding onFilterChange method
@@ -284,12 +333,12 @@ class App extends React.Component {
             minYear = Math.min(minYear, car.year);
             maxYear = Math.max(maxYear, car.year);
         });
-        
+
         console.log(maxYear)
         return {
             makes: Array.from(makes).sort(),
             dealers: Array.from(dealers).sort(),
-            years: Array.from(years).sort((a,b) => a-b),
+            years: Array.from(years).sort((a, b) => a - b),
 
             yearRange: { min: minYear, max: maxYear },
             priceRange: { min: minPrice, max: maxPrice },
@@ -331,7 +380,7 @@ class App extends React.Component {
         });
     }
 
-    filterCars(cars,filters){
+    filterCars(cars, filters) {
         return cars.filter(car => {
             const matchesYear = car.year >= filters.selectedYears.min && car.year <= filters.selectedYears.max;
             const matchesMake = !filters.selectedMake || car.make.name === filters.selectedMake;
@@ -354,7 +403,16 @@ class App extends React.Component {
             }
         });
     }
-    
+
+    openModal = (car) => {
+        this.setState({ showModal: true, selectedCar: car })
+    }
+
+
+    closeModal = () => {
+        this.setState({ showModal: false, selectedCar: null })
+    }
+
 
     render() {
         const filteredCars = this.filterCars(this.state.cars, this.state.filters);
@@ -367,39 +425,44 @@ class App extends React.Component {
                     onFilterChange={this.onFilterChange}
                     onResetFilters={this.resetFilters}
                 />
-                
+
                 <div className="container-fluid">
                     <div className="row">
                         {filteredCars.map((car, index) => {
                             return (
                                 <div key={index} className="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">
-                                    <Card
-                                        is_verified={car.dealer.isVerified}
-                                        is_dealer={car.isDealer}
-                                        is_premier_dealer={car.dealer.isPremierDealer}
-                                        carfax={car.carfax}
-                                        title={car.name}
-                                        price={car.listingPrice}
-                                        mileage={car.mileage}
-                                        exterior_color={car.exteriorColor}
-                                        interior_color={car.interiorColor}
-                                        state={car.dealer.state}
-                                        city={car.dealer.city}
-                                        zipcode={car.dealer.zip}
-                                        drive_type={car.driveType}
-                                        body_style=""
-                                        options_and_description=""
-                                        year={car.year}
-                                        make={car.make.name}
-                                        model={car.model}
-                                        trim=""
-                                        image={car.image}
-                                    />
+                                    <div onClick={() => this.openModal(car)}>
+                                        <Card
+                                            is_verified={car.dealer.isVerified}
+                                            is_dealer={car.isDealer}
+                                            is_premier_dealer={car.dealer.isPremierDealer}
+                                            carfax={car.carfax}
+                                            title={car.name}
+                                            price={car.listingPrice}
+                                            mileage={car.mileage}
+                                            exterior_color={car.exteriorColor}
+                                            interior_color={car.interiorColor}
+                                            state={car.dealer.state}
+                                            city={car.dealer.city}
+                                            zipcode={car.dealer.zip}
+                                            drive_type={car.driveType}
+                                            body_style=""
+                                            options_and_description=""
+                                            year={car.year}
+                                            make={car.make.name}
+                                            model={car.model}
+                                            trim=""
+                                            image={car.image}
+                                        />
+                                    </div>
                                 </div>
                             );
                         })}
                     </div>
                 </div>
+                {this.state.showModal &&
+                    <CarModal car={this.state.selectedCar} onClose={this.closeModal} />
+                }
             </div>
         )
     }
