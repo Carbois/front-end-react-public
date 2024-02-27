@@ -408,11 +408,13 @@ class App extends React.Component {
     }
 
     openModal = (car) => {
+        document.getElementById('app').classList.add('blurred');
         this.setState({ showModal: true, selectedCar: car })
     }
 
 
     closeModal = () => {
+        document.getElementById('app').classList.remove('blurred');
         this.setState({ showModal: false, selectedCar: null })
     }
 
@@ -420,15 +422,20 @@ class App extends React.Component {
     render() {
         const filteredCars = this.filterCars(this.state.cars, this.state.filters);
 
+        const showModal = this.state.showModal
+        const selectedCar = this.state.selectedCar
+
         return (
             <div className="app-container">
+                {this.state.showModal &&
+                    <CarModal car={this.state.selectedCar} onClose={this.closeModal} />
+                }
                 <Filter
                     filterData={this.state.filterData}
                     currentFilters={this.state.filters}
                     onFilterChange={this.onFilterChange}
                     onResetFilters={this.resetFilters}
                 />
-
                 <div className="container-fluid">
                     <div className="row">
                         {filteredCars.map((car, index) => {
@@ -463,9 +470,6 @@ class App extends React.Component {
                         })}
                     </div>
                 </div>
-                {this.state.showModal &&
-                    <CarModal car={this.state.selectedCar} onClose={this.closeModal} />
-                }
             </div>
         )
     }
