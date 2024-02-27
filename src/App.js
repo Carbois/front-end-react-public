@@ -181,8 +181,8 @@ function CarModal({ car, onClose }) {
                 <div className="car-modal-body">
                     <div className="car-details">
                         <div className="car-modal-header">
-                            <h2>{car.name}</h2>
                             <button className="car-modal-close" onClick={onClose}>&times;</button>
+                            <h2>{car.name}</h2>
                         </div>
                         <p><strong>价格:</strong> ${car.listingPrice}</p>
                         <p><strong>年份:</strong> {car.year}</p>
@@ -198,7 +198,7 @@ function CarModal({ car, onClose }) {
                             <button type="submit">Submit</button>
                         </form>
                     </div>
-                    
+
                     <div className="car-images">
                         {imagesArray.map((image, index) => (
                             <img key={index} src={image} alt={`Car ${index}`} />
