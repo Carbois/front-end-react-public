@@ -172,7 +172,22 @@ function CarModal({ car, onClose }) {
     // If there is no car data, don't render the modal
     if (!car) return null;
 
-    const imagesArray = car.imagesArray ? JSON.parse(car.imagesArray) : [];
+    // Check if car is not null and imagesArray exists
+    let imagesArray = [];
+    if (car.imagesArray) {
+        try {
+            // Parse the outer array
+            const outerArray = JSON.parse(car.imagesArray);
+            // Check if the first element is a string that needs to be parsed as JSON
+            if (typeof outerArray[0] === 'string') {
+                imagesArray = JSON.parse(outerArray[0]);
+            }
+        } catch (error) {
+            console.error('Error parsing imagesArray:', error);
+        }
+    }
+
+
 
     return (
         <div className="car-modal-backdrop" onClick={onClose}>
