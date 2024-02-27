@@ -179,11 +179,6 @@ function CarModal({ car, onClose }) {
         <div className="car-modal-backdrop" onClick={onClose}>
             <div className="car-modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="car-modal-body">
-                    <div className="car-images">
-                        {imagesArray.map((image, index) => (
-                            <img key={index} src={image} alt={`Car ${index}`} />
-                        ))}
-                    </div>
                     <div className="car-details">
                         <div className="car-modal-header">
                             <h2>{car.name}</h2>
@@ -203,6 +198,11 @@ function CarModal({ car, onClose }) {
                         <textarea placeholder="Your message"></textarea>
                         <button type="submit">Submit</button>
                     </form>
+                    <div className="car-images">
+                        {imagesArray.map((image, index) => (
+                            <img key={index} src={image} alt={`Car ${index}`} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
