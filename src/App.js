@@ -203,7 +203,7 @@ function CarModal({ car, onClose }) {
                             <input type="text" placeholder="Your name" required />
                             <input type="email" placeholder="Your email" required />
                             <input type="tel" placeholder="Your phone number" />
-                            <nput type="number" placeholder="Your offer"/>
+                            <input type="number" placeholder="Your offer"/>
                             <button type="submit">Submit</button>
                         </form>
                     </div>
