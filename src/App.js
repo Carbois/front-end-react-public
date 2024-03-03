@@ -173,7 +173,15 @@ function CarModal({ car, onClose }) {
     if (!car) return null;
 
     const outerArray = car.imagesArray ? JSON.parse(car.imagesArray) : [];
-    const imagesArray = JSON.parse(outerArray[0]);
+
+    var imagesArray = [];
+    //try catch block
+    try {
+        imagesArray = JSON.parse(outerArray[0]);
+    }
+    catch (e) {
+        imagesArray[0] = car.image
+    }
 
     return (
         <div className="car-modal-backdrop" onClick={onClose}>
