@@ -50,9 +50,9 @@ function Filter(props) {
         ? props.filterData.makes.map(make => <option key={make} value={make}>{make}</option>)
         : <option>Loading makes...</option>;
 
-    const dealersOptions = props.filterData.dealers
-        ? props.filterData.dealers.map(dealer => <option key={dealer} value={dealer}>{dealer}</option>)
-        : <option>Loading dealers...</option>;
+    const region = props.filterData.regions
+        ? props.filterData.regions.map(region => <option key={region} value={region}>{region}</option>)
+        : <option>Loading regions...</option>;
 
     // Using default values for sliders if data is not yet loaded
     const minPrice = props.filterData.priceRange ? props.filterData.priceRange.min : 0;
@@ -90,13 +90,13 @@ function Filter(props) {
                 </select>
             </label>
 
-            <label className="dealerDropdown">
-                Dealer:
-                <select name="dealer"
-                    value={props.currentFilters.selectedDealer}
-                    onChange={(e) => props.onFilterChange('selectedDealer', e.target.value)}>
-                    <option value="">All Dealers</option>
-                    {dealersOptions}
+            <label className="regionDropdown">
+                Region:
+                <select name="region"
+                    value={props.currentFilters.selectedRegion}
+                    onChange={(e) => props.onFilterChange('selectedRegion', e.target.value)}>
+                    <option value="">All Regions</option>
+                    {regionOptions}
                 </select>
             </label>
 
@@ -229,7 +229,7 @@ class App extends React.Component {
             cars: [],
             filterData: {
                 makes: [],
-                dealers: [],
+                regions: [],
                 years: [],
                 priceRange: { min: 0, max: 0 },
                 mileageRange: { min: 0, max: 0 },
@@ -237,7 +237,7 @@ class App extends React.Component {
             },
             filters: {
                 selectedMake: '',
-                selectedDealer: '',
+                selectedRegion: '',
                 selectedYears: { min: 0, max: 0 },
                 selectedPrice: { min: 0, max: 0 },
                 selectedMileage: { min: 0, max: 0 },
@@ -285,6 +285,7 @@ class App extends React.Component {
                         city
                         state
                         zip
+                        region
                     }
                     carfax
                     isDealer
@@ -307,7 +308,7 @@ class App extends React.Component {
                 this.setState({
                     filters: {
                         selectedMake: '',
-                        selectedDealer: '',
+                        selectedRegion: '',
                         selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                         selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                         selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
@@ -321,7 +322,7 @@ class App extends React.Component {
 
     processFilterData(cars) {
         let makes = new Set();
-        let dealers = new Set();
+        let regions = new Set();
         let years = new Set();
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
@@ -330,7 +331,7 @@ class App extends React.Component {
 
         cars.forEach(car => {
             makes.add(car.make.name);
-            dealers.add(car.dealer.name);
+            regions.add(car.dealer.region);
 
             // set year to a number instead of a string
             years.add(parseInt(car.year, 10));
@@ -351,7 +352,7 @@ class App extends React.Component {
         console.log(maxYear)
         return {
             makes: Array.from(makes).sort(),
-            dealers: Array.from(dealers).sort(),
+            regions: Array.from(regions).sort(),
             years: Array.from(years).sort((a, b) => a - b),
 
             yearRange: { min: minYear, max: maxYear },
@@ -398,10 +399,10 @@ class App extends React.Component {
         return cars.filter(car => {
             const matchesYear = car.year >= filters.selectedYears.min && car.year <= filters.selectedYears.max;
             const matchesMake = !filters.selectedMake || car.make.name === filters.selectedMake;
-            const matchesDealer = !filters.selectedDealer || car.dealer.name === filters.selectedDealer;
+            const matchesRegion = !filters.selectedRegion || car.dealer.region === filters.selectedRegion;
             const matchesPrice = car.listingPrice >= filters.selectedPrice.min && car.listingPrice <= filters.selectedPrice.max;
             const matchesMileage = car.mileage >= filters.selectedMileage.min && car.mileage <= filters.selectedMileage.max;
-            return matchesYear && matchesMake && matchesDealer && matchesPrice && matchesMileage;
+            return matchesYear && matchesMake && matchesRegion && matchesPrice && matchesMileage;
 
         })
     }
@@ -410,7 +411,7 @@ class App extends React.Component {
         this.setState({
             filters: {
                 selectedMake: '',
-                selectedDealer: '',
+                selectedRegion: '',
                 selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                 selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                 selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
