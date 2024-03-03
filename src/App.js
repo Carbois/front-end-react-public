@@ -50,7 +50,7 @@ function Filter(props) {
         ? props.filterData.makes.map(make => <option key={make} value={make}>{make}</option>)
         : <option>Loading makes...</option>;
 
-    const region = props.filterData.regions
+    const regionOptions = props.filterData.regions
         ? props.filterData.regions.map(region => <option key={region} value={region}>{region}</option>)
         : <option>Loading regions...</option>;
 
