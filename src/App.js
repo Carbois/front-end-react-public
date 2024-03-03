@@ -200,10 +200,10 @@ function CarModal({ car, onClose }) {
                         {/* ... other details ... */}
                         <h2>提出报价</h2>
                         <form onSubmit={handleSubmit} className="contact-form">
-                            <input type="text" placeholder="Your name" required />
-                            <input type="email" placeholder="Your email" required />
-                            <input type="tel" placeholder="Your phone number" />
-                            <input type="number" placeholder="Your offer"/>
+                            <input type="text" name="General-Contact-Form---Name" placeholder="Your name" required />
+                            <input type="email" name="General-Contact-Form---Email" placeholder="Your email" required />
+                            <input type="tel" name="General-Contact-Form---PhoneNumber" placeholder="774 434 7522" required />
+                            <input type="number" name="General-Contact-Form---offer" placeholder="Your offer" required/>
                             <button type="submit">Submit</button>
                         </form>
                     </div>
