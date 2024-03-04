@@ -450,7 +450,7 @@ class App extends React.Component {
                     <div className="row">
                         {filteredCars.map((car, index) => {
                             return (
-                                <div key={index} className="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3">
+                                <div key={index} className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
                                     <div onClick={() => this.openModal(car)}>
                                         <Card
                                             is_verified={car.dealer.isVerified}
