@@ -179,40 +179,31 @@ function CarModal({ car, onClose }) {
         //log the form data
         console.log(data);
         //submit the form data to our graphql server
+        mutation = `mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
+            addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
+                ok
+                offer {
+                    id
+                }
+            }
+        }`
+
+        variables = {
+            name: data["Name"],
+            email: data["Email"],
+            phone: data["PhoneNumber"],
+            zipcode: data["zipCode"],
+            offer: data["offer"],
+            carId: car.id
+        }
+
         fetch("https://dev-microservices.horizonauto.com/flaskapp/graphql", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({
-                query: `
-                mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
-                    addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
-                        ok
-                        offer {
-                            id
-                            name
-                            email
-                            phone
-                            zipcode
-                            offer
-                            carId
-                        }
-                    }
-                }
-                `,
-                variables: {
-                    input: {
-                        name: data["Name"],
-                        email: data["Email"],
-                        phone: data["PhoneNumber"],
-                        zipcode: data["zipCode"],
-                        offer: data["offer"],
-                        carId: car.id
-                    }
-                }
-            })
+            body: JSON.stringify({ query: mutation, variables: variables }) 
         })
 
 
