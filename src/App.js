@@ -165,7 +165,53 @@ function CarModal({ car, onClose }) {
     // Handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Process the form data
+        //pull webflow token from local storage with key "_ms-mid"
+        const token = localStorage.getItem("_ms-mid");
+        console.log(token);
+        //get the form data
+        const formData = new FormData(event.target);
+        //create an object to store the form data
+        const data = {};
+        //loop through the form data and store it in the object
+        for (let key of formData.keys()) {
+            data[key] = formData.get(key);
+        }
+        //log the form data
+        console.log(data);
+        //submit the form data to our graphql server
+        fetch("https://dev-microservices.horizonauto.com/flaskapp/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                query: `
+                mutation CreateContactForm($input: ContactFormInput!) {
+                    createContactForm(input: $input) {
+                        id
+                        name
+                        email
+                        phone
+                        zipcode
+                        offer
+                        carId
+                    }
+                }
+                `,
+                variables: {
+                    input: {
+                        name: data["Name"],
+                        email: data["Email"],
+                        phone: data["PhoneNumber"],
+                        offer: data["offer"],
+                        carId: car.id
+                    }
+                }
+            })
+        })
+
+
         console.log("Form submitted");
     };
 
@@ -200,10 +246,12 @@ function CarModal({ car, onClose }) {
                         {/* ... other details ... */}
                         <h2>提出报价</h2>
                         <form onSubmit={handleSubmit} className="contact-form">
-                            <input type="text" name="General-Contact-Form---Name" placeholder="Your name" required />
-                            <input type="email" name="General-Contact-Form---Email" placeholder="Your email" required />
-                            <input type="tel" name="General-Contact-Form---PhoneNumber" placeholder="774 434 7522" required />
-                            <input type="number" name="General-Contact-Form---offer" placeholder="Your offer" required/>
+                            <input type="text" name="Name" placeholder="Your name" required />
+                            <input type="email" name="Email" placeholder="Your email" required />
+                            <input type="tel" name="PhoneNumber" placeholder="774 434 7522" required />
+                            <input type="text" name="zipCode" placeholder="95014" required />
+                            <input type="number" name="offer" placeholder="Your offer" required/>
+                            <input type="hidden" name="carId" value={car.id} />
                             <button type="submit">Submit</button>
                         </form>
                     </div>
