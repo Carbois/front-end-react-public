@@ -177,7 +177,7 @@ function CarModal({ car, onClose }) {
             data[key] = formData.get(key);
         }
         //log the form data
-        console.log(data);
+       
         //submit the form data to our graphql server
         const mutation = `mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
             addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
@@ -196,7 +196,7 @@ function CarModal({ car, onClose }) {
             offer: data["offer"],
             carId: car.id
         }
-
+        console.log(variables);
         fetch("https://dev-microservices.horizonauto.com/flaskapp/graphql", {
             method: "POST",
             headers: {
