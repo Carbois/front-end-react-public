@@ -179,7 +179,7 @@ function CarModal({ car, onClose }) {
         //log the form data
         console.log(data);
         //submit the form data to our graphql server
-        mutation = `mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
+        const mutation = `mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
             addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
                 ok
                 offer {
@@ -188,7 +188,7 @@ function CarModal({ car, onClose }) {
             }
         }`
 
-        variables = {
+        const variables = {
             name: data["Name"],
             email: data["Email"],
             phone: data["PhoneNumber"],
