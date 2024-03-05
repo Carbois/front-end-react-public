@@ -187,8 +187,8 @@ function CarModal({ car, onClose }) {
             },
             body: JSON.stringify({
                 query: `
-                mutation CreateContactForm($input: ContactFormInput!) {
-                    createContactForm(input: $input) {
+                mutation AddOffer($input: ContactFormInput!) {
+                    addOffer(input: $input) {
                         id
                         name
                         email
