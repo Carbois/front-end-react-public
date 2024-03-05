@@ -207,6 +207,7 @@ function CarModal({ car, onClose }) {
                         name: data["Name"],
                         email: data["Email"],
                         phone: data["PhoneNumber"],
+                        zipcode: data["zipCode"],
                         offer: data["offer"],
                         carId: car.id
                     }
