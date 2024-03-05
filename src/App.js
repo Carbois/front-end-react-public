@@ -187,15 +187,18 @@ function CarModal({ car, onClose }) {
             },
             body: JSON.stringify({
                 query: `
-                mutation AddOffer($input: ContactFormInput!) {
-                    addOffer(input: $input) {
-                        id
-                        name
-                        email
-                        phone
-                        zipcode
-                        offer
-                        carId
+                mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
+                    addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
+                        ok
+                        offer {
+                            id
+                            name
+                            email
+                            phone
+                            zipcode
+                            offer
+                            carId
+                        }
                     }
                 }
                 `,
