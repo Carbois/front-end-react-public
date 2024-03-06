@@ -241,10 +241,19 @@ function CarModal({ car, onClose }) {
                         {/*... other details ...*/}
                         <h2>提出报价</h2>
                         <h2 className='best-offer'>Best Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</h2>
+                        <ul>
+                            <li>通过此表格向经销商提出您的报价。</li>
+                            <li>该报价为非约束性谈判提案。</li>
+                            <li>目前最好的报价已在上方标明。低于此报价的出价将自动被拒绝。</li>
+                        </ul>
                         <form onSubmit={handleSubmit} className="contact-form">
+                            <label htmlFor="Name">Name:</label>
                             <input type="text" name="Name" placeholder="Your name" required />
+                            <label htmlFor="Email">Email:</label>
                             <input type="email" name="Email" placeholder="Your email" required />
+                            <label htmlFor="PhoneNumber">Phone Number:</label>
                             <input type="tel" name="PhoneNumber" placeholder="774 434 7522" required />
+                            <label htmlFor="zipCode">Zip Code:</label>
                             <input type="text" name="zipCode" placeholder="95014" required />
                             <label htmlFor="offer">Offer:</label>
                             <input type="number" name="offer" placeholder="Your offer" required/>
