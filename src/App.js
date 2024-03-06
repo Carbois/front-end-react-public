@@ -213,6 +213,10 @@ function CarModal({ car, onClose }) {
 
 
         console.log("Form submitted");
+        //show a success message
+        alert("Your offer has been submitted successfully");
+        //close the modal
+        onClose();
     };
 
     // If there is no car data, don't render the modal
