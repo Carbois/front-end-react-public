@@ -238,9 +238,9 @@ function CarModal({ car, onClose }) {
                         <p><strong>里程:</strong> {car.mileage}</p>
                         <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
                         <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
-                        {/* ... other details ... */}
+                        {/*... other details ...*/}
                         <h2>提出报价</h2>
-                        <h2>Current Best Offer: ${car.listingPrice*0.95}</h2>
+                        <h2>Best Offer: ${car.listingPrice*0.95}</h2>
                         <form onSubmit={handleSubmit} className="contact-form">
                             <input type="text" name="Name" placeholder="Your name" required />
                             <input type="email" name="Email" placeholder="Your email" required />
