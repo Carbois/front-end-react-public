@@ -168,6 +168,11 @@ function CarModal({ car, onClose }) {
         //pull webflow token from local storage with key "_ms-mid"
         const token = localStorage.getItem("_ms-mid");
         console.log(token);
+        //check if offer is above minimum offer
+        if (event.target.offer.value < Math.round(car.listingPrice * 0.95)) {
+            alert("Offer must be above the minimum offer of " + Math.round(car.listingPrice * 0.95));
+            return;
+        }
         //get the form data
         const formData = new FormData(event.target);
         //create an object to store the form data
