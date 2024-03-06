@@ -240,12 +240,13 @@ function CarModal({ car, onClose }) {
                         <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
                         {/*... other details ...*/}
                         <h2>提出报价</h2>
-                        <h2>Best Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</h2>
+                        <h2 className='listing-price'>Best Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</h2>
                         <form onSubmit={handleSubmit} className="contact-form">
                             <input type="text" name="Name" placeholder="Your name" required />
                             <input type="email" name="Email" placeholder="Your email" required />
                             <input type="tel" name="PhoneNumber" placeholder="774 434 7522" required />
                             <input type="text" name="zipCode" placeholder="95014" required />
+                            <label htmlFor="offer">Offer:</label>
                             <input type="number" name="offer" placeholder="Your offer" required/>
                             <input type="hidden" name="carId" value={car.id} />
                             <button type="submit">Submit</button>
