@@ -242,7 +242,7 @@ function CarModal({ car, onClose }) {
                             <button className="car-modal-close" onClick={onClose}>&times;</button>
                             <h2>{car.name}</h2>
                         </div>
-                        <p className='listing-price'><strong>价格:</strong> ${car.listingPrice}</p>
+                        <p className='listing-price'><strong>价格:</strong> ${car.listingPrice.toLocaleString('en-US')}</p>
                         <p><strong>年份:</strong> {car.year}</p>
                         <p><strong>里程:</strong> {car.mileage}</p>
                         <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
