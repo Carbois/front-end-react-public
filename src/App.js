@@ -264,7 +264,8 @@ function CarModal({ car, onClose }) {
                             <input type="tel" name="PhoneNumber" placeholder="774 434 7522" required />
                             <label htmlFor="zipCode">Zip Code:</label>
                             <input type="text" name="zipCode" placeholder="95014" required />
-                            <label htmlFor="offer">Offer:</label>
+                            <label htmlFor="offer">Offer: </label>
+                            <p>Minimum Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</p>
                             <input type="number" name="offer" placeholder="Your offer" required/>
                             <input type="hidden" name="carId" value={car.id} />
                             <button type="submit">Submit</button>
