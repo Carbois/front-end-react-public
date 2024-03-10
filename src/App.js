@@ -16,6 +16,7 @@ function Card(props) {
                 <p className="listing-mileage"><strong>里程:</strong> {props.mileage}</p>
                 <p className="exterior-color"><strong>外观颜色:</strong> {props.exterior_color}</p>
                 <p className="interior-color"><strong>内饰颜色:</strong> {props.interior_color}</p>
+                <p className="Region"><strong>地区:</strong> {props.region}</p>
                 <div className="verified-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'green', borderRadius: '50px', padding: '2px 15px' }}>
                     <p style={{ color: 'white', margin: 0 }}>认证卖家</p>
                 </div>
@@ -542,6 +543,7 @@ class App extends React.Component {
                                             trim=""
                                             image={car.image}
                                             options = {car.options}
+                                            region = {dealer.region}
                                         />
                                     </div>
                                 </div>
