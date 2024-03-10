@@ -25,7 +25,7 @@ function Card(props) {
                 )}
                 {/* hide the is_premier_dealer badge if the seller is not a premier_dealer */}
                 {props.is_premier_dealer != 0 && (
-                <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px' }}>
+                <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px', }}>
                     <p style={{ color: 'black', margin: 0 }}>精选经销商</p>
                 </div>
                 )}
@@ -237,6 +237,7 @@ function CarModal({ car, onClose }) {
     //try catch block
     try {
         imagesArray = JSON.parse(outerArray[0]);
+        imagesArray.unshift(car.image);
     }
     catch (e) {
         imagesArray[0] = car.image
