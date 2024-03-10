@@ -543,7 +543,7 @@ class App extends React.Component {
                                             trim=""
                                             image={car.image}
                                             options = {car.options}
-                                            region = {dealer.region}
+                                            region = {car.dealer.region}
                                         />
                                     </div>
                                 </div>
