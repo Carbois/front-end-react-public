@@ -249,6 +249,7 @@ function CarModal({ car, onClose }) {
                         <p><strong>里程:</strong> {car.mileage}</p>
                         <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
                         <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
+                        <p><strong>选配/套餐:</strong> {car.options}</p>
                         {/*... other details ...*/}
                         <h2>提出报价</h2>
                         <h2 className='best-offer'>Best Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</h2>
@@ -356,6 +357,7 @@ class App extends React.Component {
                     carfax
                     isDealer
                     imagesArray
+                    options
                 }
             }`;
 
@@ -539,6 +541,7 @@ class App extends React.Component {
                                             model={car.model}
                                             trim=""
                                             image={car.image}
+                                            options = {car.options}
                                         />
                                     </div>
                                 </div>
