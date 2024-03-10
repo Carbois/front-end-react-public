@@ -18,13 +18,13 @@ function Card(props) {
                 <p className="interior-color"><strong>内饰颜色:</strong> {props.interior_color}</p>
                 <p className="Region"><strong>地区:</strong> {props.region}</p>
                 {/* hide the verified badge if the dealer is not verified */}
-                {props.isVerified && (
+                {props.isVerified != 0 && (
                     <div className="verified-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'green', borderRadius: '50px', padding: '2px 15px' }}>
                         <p style={{ color: 'white', margin: 0 }}>认证卖家</p>
                     </div>
                 )}
                 {/* hide the is_premier_dealer badge if the seller is not a premier_dealer */}
-                {props.is_premier_dealer && (
+                {props.is_premier_dealer != 0 && (
                 <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px' }}>
                     <p style={{ color: 'black', margin: 0 }}>精选经销商</p>
                 </div>
