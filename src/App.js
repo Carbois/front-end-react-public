@@ -121,7 +121,7 @@ function Filter(props) {
                          
                     </label>
                     <label>
-                        Max Price:
+                         Max Price:
                         <span>{props.currentFilters.selectedPrice.max}</span>
                     </label>
                 </label>
@@ -144,11 +144,11 @@ function Filter(props) {
                     />
                     <label>
                         Min Mileage:
-                        <span>{props.currentFilters.selectedMileage.min}</span>
+                        <span>{props.currentFilters.selectedMileage.min} </span>
                          
                     </label>
                     <label>
-                        Max Mileage:
+                         Max Mileage:
                         <span>{props.currentFilters.selectedMileage.max}</span>
                     </label>
                 </label>
