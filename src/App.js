@@ -25,9 +25,9 @@ function Card(props) {
                 )}
                 {/* hide the is_premier_dealer badge if the seller is not a premier_dealer */}
                 {props.is_premier_dealer != 0 && (
-                <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px', }}>
-                    <p style={{ color: 'black', margin: 0 }}>精选经销商</p>
-                </div>
+                    <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px', }}>
+                        <p style={{ color: 'black', margin: 0 }}>精选经销商</p>
+                    </div>
                 )}
                 <div className="carfax-badge" style={{ fontSize: '18px', display: 'inline-block', borderRadius: '50px', padding: '10px 0' }}>
                     <img src="https://uploads-ssl.webflow.com/654d8bd9b929e284fbe484ae/65c248a7f51659032c9af01c_carfax_logo.png" style={{ width: '120px' }} />
@@ -125,10 +125,10 @@ function Filter(props) {
                     <label>
                         Min Price:
                         <span>{props.currentFilters.selectedPrice.min} </span>
-                         
+
                     </label>
                     <label>
-                         Max Price:
+                        Max Price:
                         <span>{props.currentFilters.selectedPrice.max}</span>
                     </label>
                 </label>
@@ -152,10 +152,10 @@ function Filter(props) {
                     <label>
                         Min Mileage:
                         <span>{props.currentFilters.selectedMileage.min} </span>
-                         
+
                     </label>
                     <label>
-                         Max Mileage:
+                        Max Mileage:
                         <span>{props.currentFilters.selectedMileage.max}</span>
                     </label>
                 </label>
@@ -191,7 +191,7 @@ function CarModal({ car, onClose }) {
             data[key] = formData.get(key);
         }
         //log the form data
-       
+
         //submit the form data to our graphql server
         const mutation = `mutation AddOffer($name: String!, $email: String!, $phone: String!, $zipcode: String!, $offer: Int!, $carId: String!) {
             addOffer(name: $name, email: $email, phone: $phone, zipcode: $zipcode, offer: $offer, carId: $carId) {
@@ -217,7 +217,7 @@ function CarModal({ car, onClose }) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ query: mutation, variables: variables }) 
+            body: JSON.stringify({ query: mutation, variables: variables })
         })
 
 
@@ -260,7 +260,7 @@ function CarModal({ car, onClose }) {
                         <p><strong>选配/套餐:</strong> {car.options}</p>
                         {/*... other details ...*/}
                         <h2>提出报价</h2>
-                        <h2 className='best-offer'>Best Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</h2>
+                        <h2 className='best-offer'>Best Offer: ${Math.round(car.listingPrice * 0.95).toLocaleString('en-US')}</h2>
                         <ul>
                             <li>通过此表格向经销商提出您的报价。</li>
                             <li>该报价为非约束性谈判提案。</li>
@@ -276,8 +276,8 @@ function CarModal({ car, onClose }) {
                             <label htmlFor="zipCode">Zip Code:</label>
                             <input type="text" name="zipCode" placeholder="95014" required />
                             <label htmlFor="offer">Offer: </label>
-                            <p>Minimum Offer: ${Math.round(car.listingPrice*0.95).toLocaleString('en-US')}</p>
-                            <input type="number" name="offer" placeholder="Your offer" value={Math.round(car.listingPrice*0.95).toLocaleString('en-US')} required/>
+                            <p>Minimum Offer: ${Math.round(car.listingPrice * 0.95).toLocaleString('en-US')}</p>
+                            <input type="number" name="offer" placeholder="Your offer" value={Math.round(car.listingPrice * 0.95).toLocaleString('en-US')} required />
                             <input type="hidden" name="carId" value={car.id} />
                             <button type="submit">Submit</button>
                         </form>
@@ -327,11 +327,26 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchInventory();
+        // Assuming you're at the URL: "http://example.com?region=norcal&make=bmw"
+        const searchParams = new URLSearchParams(window.location.search);
+        const regionParam = searchParams.get('region'); // 'norcal'
+        const makeParam = searchParams.get('make'); // 'bmw'
+        
+        if (regionParam && makeParam) {
+            this.fetchInventory(regionParam,makeParam);
+        }
+        else if (regionParam && !makeParam) {
+            this.fetchInventory(regionParam);
+        }else if(makeParam){
+            this.fetchInventory(null,makeParam);
+        }else {
+            this.fetchInventory();
+        }
+        
     }
 
     fetchInventory(region, make) {
-        
+
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
         const query = `
@@ -369,7 +384,7 @@ class App extends React.Component {
                     options
                 }
             }`;
-        let variables = {region : "", make : ""};
+        let variables = { region: "", make: "" };
         if (region) {
             variables.region = region;
         }
@@ -382,7 +397,7 @@ class App extends React.Component {
         fetch(url, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ query: query, variables: variables}),
+            body: JSON.stringify({ query: query, variables: variables }),
         })
             .then(response => response.json())
             .then(data => {
@@ -559,8 +574,8 @@ class App extends React.Component {
                                             model={car.model}
                                             trim=""
                                             image={car.image}
-                                            options = {car.options}
-                                            region = {car.dealer.region}
+                                            options={car.options}
+                                            region={car.dealer.region}
                                         />
                                     </div>
                                 </div>
