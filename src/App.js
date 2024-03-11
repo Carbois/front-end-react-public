@@ -333,6 +333,7 @@ class App extends React.Component {
         const makeParam = searchParams.get('make'); // 'bmw'
         
         if (regionParam && makeParam) {
+            console.log(regionParam, makeParam)
             this.fetchInventory(regionParam,makeParam);
         }
         else if (regionParam && !makeParam) {
