@@ -387,9 +387,9 @@ class App extends React.Component {
             .then(response => response.json())
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
-                this.setState({ cars: data.data.cars_by_region_or_make });
+                this.setState({ cars: data.data.carsByRegionOrMake });
                 //use processFilterData() to process the data and set the state
-                this.setState({ filterData: this.processFilterData(data.data.cars_by_region_or_make) });
+                this.setState({ filterData: this.processFilterData(data.data.carsByRegionOrMake) });
                 //set initial filters
                 this.setState({
                     filters: {
