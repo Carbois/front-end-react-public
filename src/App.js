@@ -385,7 +385,7 @@ class App extends React.Component {
                     options
                 }
             }`;
-        let variables = { region: "", make: "" };
+        let variables = { "region": "", "make": "" };
         if (region) {
             variables.region = region;
         }
