@@ -369,7 +369,7 @@ class App extends React.Component {
                     options
                 }
             }`;
-        let variables = {};
+        let variables = {region : "", make : ""};
         if (region) {
             variables.region = region;
         }
