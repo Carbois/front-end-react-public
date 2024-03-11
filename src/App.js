@@ -330,12 +330,13 @@ class App extends React.Component {
         this.fetchInventory();
     }
 
-    fetchInventory() {
+    fetchInventory(region, make) {
+        
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
         const query = `
-            query GetCars {
-                cars {
+            query GetCarsByRegionOrMake($region: String, $make: String) {
+                cars_by_region_or_make(region: $region, make: $make) {
                     id
                     name
                     year
@@ -368,18 +369,27 @@ class App extends React.Component {
                     options
                 }
             }`;
-
+        let variables = {};
+        if (region) {
+            variables.region = region;
+        }
+        else if (make) {
+            variables.make = make;
+        }
+        else {
+            variables = {};
+        }
         fetch(url, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ query: query }),
+            body: JSON.stringify({ query: query, variables: variables}),
         })
             .then(response => response.json())
             .then(data => {
                 // Assuming the data returned is in the format { data: { cars: [...] } }
-                this.setState({ cars: data.data.cars });
+                this.setState({ cars: data.data.cars_by_region_or_make });
                 //use processFilterData() to process the data and set the state
-                this.setState({ filterData: this.processFilterData(data.data.cars) });
+                this.setState({ filterData: this.processFilterData(data.data.cars_by_region_or_make) });
                 //set initial filters
                 this.setState({
                     filters: {
