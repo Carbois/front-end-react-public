@@ -97,7 +97,7 @@ function Filter(props) {
                 </select>
             </label>
 
-            <label className="regionDropdown">
+            {/* <label className="regionDropdown">
                 Region:
                 <select name="region"
                     value={props.currentFilters.selectedRegion}
@@ -105,7 +105,7 @@ function Filter(props) {
                     <option value="">All Regions</option>
                     {regionOptions}
                 </select>
-            </label>
+            </label> */}
 
             {/* Price Filter */}
             <div className="priceSlider">
