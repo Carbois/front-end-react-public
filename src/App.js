@@ -395,6 +395,7 @@ class App extends React.Component {
         else {
             variables = {};
         }
+        console.log(variables)
         fetch(url, {
             method: 'POST',
             headers: headers,
