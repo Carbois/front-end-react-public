@@ -347,7 +347,7 @@ class App extends React.Component {
     }
 
     fetchInventory(region, make) {
-
+        console.log(region, make)
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
         const query = `
