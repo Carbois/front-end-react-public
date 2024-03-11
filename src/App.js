@@ -336,7 +336,7 @@ class App extends React.Component {
         const headers = { "Content-Type": "application/json" };
         const query = `
             query GetCarsByRegionOrMake($region: String, $make: String) {
-                cars_by_region_or_make(region: $region, make: $make) {
+                carsByRegionOrMake(region: $region, make: $make) {
                     id
                     name
                     year
