@@ -386,7 +386,11 @@ class App extends React.Component {
                 }
             }`;
         let variables = { "region": "", "make": "" };
-        if (region) {
+        if (region && make) {
+            variables.region = region;
+            variables.make = make;
+        }
+        else if (region) {
             variables.region = region;
         }
         else if (make) {
