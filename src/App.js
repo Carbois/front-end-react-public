@@ -335,7 +335,7 @@ class App extends React.Component {
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
         const query = `
-            query GetCarsByRegionOrMake($region: String, $make: String) {
+            query CarsByRegionOrMake($region: String, $make: String) {
                 carsByRegionOrMake(region: $region, make: $make) {
                     id
                     name
