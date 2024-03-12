@@ -574,7 +574,7 @@ class App extends React.Component {
                 selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
             },
             filterData: {
-                filteredModels: this.state.filterData.makes
+                filteredModels: this.state.filterData.models
             }
         });
     }
