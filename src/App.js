@@ -458,7 +458,7 @@ class App extends React.Component {
 
             // grab the first word of the model, unless the first word is "Grand", or the name contains "AMG" and is a mercedes, then grab the first two words
             let model = car.model.split(" ")[0];
-            if (model.toLowerCase() == ("Grand" || "Model") || ((model.toLowerCase() === "amg" || car.model.toLowerCase().includes("amg") ) && car.make.name === "Mercedes-Benz")) {
+            if (model.toLowerCase() == ("grand" || "model") || ((model.toLowerCase() === "amg" || car.model.toLowerCase().includes("amg") ) && car.make.name === "Mercedes-Benz")) {
                 model = car.model.split(" ")[0] + " " + car.model.split(" ")[1];
             }
             console.log(model)
