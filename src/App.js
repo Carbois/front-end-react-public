@@ -540,6 +540,7 @@ class App extends React.Component {
                         .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
                     newFilterData.filteredModels = filteredModels;
                     console.log("filtered models", filteredModels)
+                    console.log(prevState.cars.filter(car => car.make === value))
                 } else {
                     newFilterData.filteredModels = newFilterData.models // Reset models when no make is selected
                 }
