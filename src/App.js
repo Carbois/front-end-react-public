@@ -57,6 +57,10 @@ function Filter(props) {
         ? props.filterData.makes.map(make => <option key={make} value={make}>{make}</option>)
         : <option>Loading makes...</option>;
 
+    const modelsOptions = props.filterData.models
+        ? props.filterData.models.map(model => <option key={model} value={model}>{model}</option>)
+        : <option>Loading models...</option>;
+
     const regionOptions = props.filterData.regions
         ? props.filterData.regions.map(region => <option key={region} value={region}>{region}</option>)
         : <option>Loading regions...</option>;
@@ -97,6 +101,15 @@ function Filter(props) {
                 </select>
             </label>
 
+            <label className="modelDropdown">
+                Model:
+                <select name="model"
+                    value={props.currentFilters.selectedModel}
+                    onChange={(e) => props.onFilterChange('selectedModel', e.target.value)}>
+                    <option value="">All Models</option>
+                    {modelsOptions}
+                </select>
+            </label>
             {/* <label className="regionDropdown">
                 Region:
                 <select name="region"
@@ -306,6 +319,7 @@ class App extends React.Component {
                 makes: [],
                 regions: [],
                 years: [],
+                models: [],
                 priceRange: { min: 0, max: 0 },
                 mileageRange: { min: 0, max: 0 },
                 yearRange: { min: 0, max: 0 }
@@ -313,6 +327,7 @@ class App extends React.Component {
             filters: {
                 selectedMake: '',
                 selectedRegion: '',
+                selectedModel: '',
                 selectedYears: { min: 0, max: 0 },
                 selectedPrice: { min: 0, max: 0 },
                 selectedMileage: { min: 0, max: 0 },
@@ -416,6 +431,7 @@ class App extends React.Component {
                     filters: {
                         selectedMake: '',
                         selectedRegion: '',
+                        selectedModel: '',
                         selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                         selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                         selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max }
@@ -465,6 +481,10 @@ class App extends React.Component {
                 model = car.model.split(" ")[0] + " " + car.model.split(" ")[1];
             }
             console.log(model)
+            models.add(model);
+            // upadate car model to have the formatted model saved
+            car.model = model;
+            console.log(length(models))
         });
 
         console.log(maxYear)
@@ -472,6 +492,7 @@ class App extends React.Component {
             makes: Array.from(makes).sort(),
             regions: Array.from(regions).sort(),
             years: Array.from(years).sort((a, b) => a - b),
+            models: Array.from(models).sort(),
 
             yearRange: { min: minYear, max: maxYear },
             priceRange: { min: minPrice, max: maxPrice },
@@ -520,7 +541,8 @@ class App extends React.Component {
             const matchesRegion = !filters.selectedRegion || car.dealer.region === filters.selectedRegion;
             const matchesPrice = car.listingPrice >= filters.selectedPrice.min && car.listingPrice <= filters.selectedPrice.max;
             const matchesMileage = car.mileage >= filters.selectedMileage.min && car.mileage <= filters.selectedMileage.max;
-            return matchesYear && matchesMake && matchesRegion && matchesPrice && matchesMileage;
+            const matchesModel = !filters.selectedModel || car.model === filters.selectedModel;
+            return matchesYear && matchesMake && matchesRegion && matchesPrice && matchesMileage && matchesModel;
 
         })
     }
@@ -530,6 +552,7 @@ class App extends React.Component {
             filters: {
                 selectedMake: '',
                 selectedRegion: '',
+                selectedModel: '',
                 selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                 selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                 selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
