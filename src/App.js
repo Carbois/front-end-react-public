@@ -317,7 +317,7 @@ class App extends React.Component {
         // if we do, set the make equal to the selected make
         const urlParams = new URLSearchParams(window.location.search);
         const initialMake = urlParams.get('makeName') || '';
-        const language = window.location.pathname.includes("/cn") ? "cn" : "en";
+        const language = window.location.pathname.includes("/zh") ? "zh" : "en";
         let text= {};
         if(language === "cn"){
             text = {
