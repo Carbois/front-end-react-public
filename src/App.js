@@ -449,7 +449,6 @@ class App extends React.Component {
         let regions = new Set();
         let years = new Set();
         let models = new Set();
-        let filteredModels = new Set();
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
         let minYear = Infinity, maxYear = -Infinity;
@@ -547,7 +546,7 @@ class App extends React.Component {
                 newFilters[filterName] = value; // For other filters
             }
 
-            return { filters: newFilters };
+            return { filters: newFilters, filterData: newFilterData};
         });
     }
 
