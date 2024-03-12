@@ -330,7 +330,7 @@ class App extends React.Component {
                 yearRange: { min: 0, max: 0 }
             },
             filters: {
-                selectedMake: initialMake,
+                selectedMake: '',
                 selectedRegion: '',
                 selectedModel: '',
                 selectedYears: { min: 0, max: 0 },
@@ -452,7 +452,7 @@ class App extends React.Component {
                 }
                 this.setState({
                     filters: {
-                        selectedMake: '',
+                        selectedMake: initialMake,
                         selectedRegion: '',
                         selectedModel: '',
                         selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
