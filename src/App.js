@@ -356,15 +356,21 @@ class App extends React.Component {
 
         if (regionParam && makeParam) {
             console.log(regionParam, makeParam)
-            this.fetchInventory(regionParam, makeParam);
+
             this.setState({ loadedWithMake: true });
+            this.fetchInventory(regionParam, makeParam);
+            
         }
         else if (regionParam && !makeParam) {
+
+            this.setState({ loadedWithMake: true });
             this.fetchInventory(regionParam);
-            this.setState({ loadedWithMake: true });
+            
         } else if (makeParam) {
-            this.fetchInventory(null, makeParam);
+
             this.setState({ loadedWithMake: true });
+            this.fetchInventory(null, makeParam);
+            
         } else {
             this.fetchInventory();
         }
@@ -373,6 +379,7 @@ class App extends React.Component {
 
     fetchInventory(region, make) {
         console.log(region, make)
+        const initialMake = urlParams.get('make_name') || '';
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
         const query = `
@@ -439,7 +446,7 @@ class App extends React.Component {
                 //set initial filters
                 this.setState({
                     filters: {
-                        selectedMake: '',
+                        selectedMake: initialMake,
                         selectedRegion: '',
                         selectedModel: '',
                         selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
