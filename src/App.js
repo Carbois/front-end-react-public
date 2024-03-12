@@ -11,7 +11,7 @@ function Card(props) {
             </div>
             <div className="listing-info">
                 <h4 className="listing-title">{props.title}</h4>
-                <p className="listing-price"><strong>价格:</strong> ${props.price}</p>
+                <p className="listing-price"><strong>价格:</strong> ${props.price.toLocaleString('en-US')}</p>
                 <p className="listing-year"><strong>年份:</strong> {props.year}</p>
                 <p className="listing-mileage"><strong>里程:</strong> {props.mileage}</p>
                 <p className="exterior-color"><strong>外观颜色:</strong> {props.exterior_color}</p>
@@ -313,6 +313,10 @@ function CarModal({ car, onClose }) {
 class App extends React.Component {
     constructor() {
         super();
+        // check if we have a made selected in the the url
+        // if we do, set the make equal to the selected make
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialMake = urlParams.get('make_name') || '';
         this.state = {
             cars: [],
             filterData: {
@@ -326,7 +330,7 @@ class App extends React.Component {
                 yearRange: { min: 0, max: 0 }
             },
             filters: {
-                selectedMake: '',
+                selectedMake: initialMake,
                 selectedRegion: '',
                 selectedModel: '',
                 selectedYears: { min: 0, max: 0 },
@@ -334,8 +338,10 @@ class App extends React.Component {
                 selectedMileage: { min: 0, max: 0 },
             },
             showModal: false,
-            selectedCar: null
+            selectedCar: null,
+            loadedWithMake: false
         };
+
 
         // Binding onFilterChange method
         this.onFilterChange = this.onFilterChange.bind(this);
@@ -351,11 +357,14 @@ class App extends React.Component {
         if (regionParam && makeParam) {
             console.log(regionParam, makeParam)
             this.fetchInventory(regionParam, makeParam);
+            this.setState({ loadedWithMake: true });
         }
         else if (regionParam && !makeParam) {
             this.fetchInventory(regionParam);
+            this.setState({ loadedWithMake: true });
         } else if (makeParam) {
             this.fetchInventory(null, makeParam);
+            this.setState({ loadedWithMake: true });
         } else {
             this.fetchInventory();
         }
@@ -529,6 +538,10 @@ class App extends React.Component {
                     newFilters.selectedMileage.max = Math.max(value.max, newFilters.selectedMileage.min);
                 }
             } else if (filterName === 'selectedMake') {
+                if (this.state.loadedWithMake) {
+                    this.fetchInventory();
+                    this.setState({ loadedWithMake: false });
+                }
                 newFilters.selectedMake = value;
                 console.log("make selected", value)
                 newFilters.selectedModel = ''; // Reset model when make is changed
@@ -547,7 +560,7 @@ class App extends React.Component {
                 newFilters[filterName] = value; // For other filters
             }
 
-            return { filters: newFilters, filterData: newFilterData};
+            return { filters: newFilters, filterData: newFilterData };
         });
     }
 
@@ -583,7 +596,7 @@ class App extends React.Component {
                 priceRange: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                 mileageRange: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
                 yearRange: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max }
-               
+
             }
         });
     }
