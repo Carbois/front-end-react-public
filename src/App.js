@@ -574,7 +574,15 @@ class App extends React.Component {
                 selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
             },
             filterData: {
-                filteredModels: this.state.filterData.models
+                makes: this.state.filterData.makes,
+                regions: this.state.filterData.regions,
+                years: this.state.filterData.years,
+                models: this.state.filterData.models,
+                filteredModels: this.state.filterData.models,
+                priceRange: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
+                mileageRange: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
+                yearRange: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max }
+               
             }
         });
     }
