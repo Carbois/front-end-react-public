@@ -376,7 +376,7 @@ class App extends React.Component {
 
         };
 
-
+        console.log(this.state.text)
         // Binding onFilterChange method
         this.onFilterChange = this.onFilterChange.bind(this);
         this.resetFilters = this.resetFilters.bind(this);
