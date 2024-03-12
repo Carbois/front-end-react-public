@@ -11,22 +11,22 @@ function Card(props) {
             </div>
             <div className="listing-info">
                 <h4 className="listing-title">{props.title}</h4>
-                <p className="listing-price"><strong>价格:</strong> ${props.price.toLocaleString('en-US')}</p>
-                <p className="listing-year"><strong>年份:</strong> {props.year}</p>
-                <p className="listing-mileage"><strong>里程:</strong> {props.mileage.toLocaleString('en-US')}</p>
-                <p className="exterior-color"><strong>外观颜色:</strong> {props.exterior_color}</p>
-                <p className="interior-color"><strong>内饰颜色:</strong> {props.interior_color}</p>
-                <p className="Region"><strong>地区:</strong> {props.region}</p>
+                <p className="listing-price"><strong>{props.text.priceTag}:</strong> ${props.price.toLocaleString('en-US')}</p>
+                <p className="listing-year"><strong>{props.text.yearTag}:</strong> {props.year}</p>
+                <p className="listing-mileage"><strong>{props.text.mileageTag}:</strong> {props.mileage.toLocaleString('en-US')}</p>
+                <p className="exterior-color"><strong>{props.text.extColorTag}:</strong> {props.exterior_color}</p>
+                <p className="interior-color"><strong>{props.text.intColorTag}:</strong> {props.interior_color}</p>
+                <p className="Region"><strong>{props.text.regionTag}:</strong> {props.region}</p>
                 {/* hide the verified badge if the dealer is not verified */}
                 {props.isVerified != 0 && (
                     <div className="verified-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'green', borderRadius: '50px', padding: '2px 15px' }}>
-                        <p style={{ color: 'white', margin: 0 }}>认证卖家</p>
+                        <p style={{ color: 'white', margin: 0 }}>{props.text.verifiedTag}</p>
                     </div>
                 )}
                 {/* hide the is_premier_dealer badge if the seller is not a premier_dealer */}
                 {props.is_premier_dealer != 0 && (
                     <div className="premier-dealer-badge" style={{ fontSize: '18px', display: 'inline-block', backgroundColor: 'gold', borderRadius: '50px', padding: '2px 15px', }}>
-                        <p style={{ color: 'black', margin: 0 }}>精选经销商</p>
+                        <p style={{ color: 'black', margin: 0 }}>{props.text.premierTag}</p>
                     </div>
                 )}
                 <div className="carfax-badge" style={{ fontSize: '18px', display: 'inline-block', borderRadius: '50px', padding: '10px 0' }}>
@@ -35,10 +35,10 @@ function Card(props) {
             </div>
             <div className="listing-details">
                 <div className="listing-features">
-                    <span>州: {props.state}</span>
-                    <span>城市: {props.city}</span>
+                    <span>{props.text.stateTag}: {props.state}</span>
+                    <span>{props.text.cityTag}: {props.city}</span>
                     <span>zipcode: {props.zipcode}</span>
-                    <span className="drive-type">驱动类型: {props.drive_type}</span>
+                    <span className="drive-type">{props.text.driveTypeTag}: {props.drive_type}</span>
                     {/* <span className="body-style">车身类型: {props.body_style}</span>
                     <span className="options-and-description">选配/套餐: {props.options_and_description}</span> */}
                 </div>
@@ -267,7 +267,7 @@ function CarModal({ car, onClose }) {
                         </div>
                         <p className='listing-price'><strong>价格:</strong> ${car.listingPrice.toLocaleString('en-US')}</p>
                         <p><strong>年份:</strong> {car.year}</p>
-                        <p><strong>里程:</strong> {car.mileage}</p>
+                        <p><strong>里程:</strong> {car.mileage.toLocaleString('en-US')}</p>
                         <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
                         <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
                         <p><strong>选配/套餐:</strong> {car.options}</p>
@@ -317,6 +317,38 @@ class App extends React.Component {
         // if we do, set the make equal to the selected make
         const urlParams = new URLSearchParams(window.location.search);
         const initialMake = urlParams.get('makeName') || '';
+        const language = window.location.pathname.includes("/cn") ? "cn" : "en";
+        let text= {};
+        if(language === "cn"){
+            text = {
+                yearTag: "年份",
+                mileageTag: "里程",
+                extColorTag: "外观颜色",
+                intColorTag: "内饰颜色",
+                regionTag: "地区",
+                stateTag: "州",
+                cityTag: "城市",
+                driveTypeTag: "驱动类型",
+                verifiedTag: "认证卖家",
+                premierTag: "",
+                priceTag: "价格"
+            }
+        }
+        else{
+            text = {
+                yearTag: "Year",
+                mileageTag: "Mileage",
+                extColorTag: "Exterior Color",
+                intColorTag: "Interior Color",
+                regionTag: "Region",
+                stateTag: "State",
+                cityTag: "City",
+                driveTypeTag: "Drive Type",
+                verifiedTag: "Verified Seller",
+                premierTag: "Premier Dealer",
+                priceTag: "Price"
+            }
+        }
         this.state = {
             cars: [],
             filterData: {
@@ -339,7 +371,9 @@ class App extends React.Component {
             },
             showModal: false,
             selectedCar: null,
-            loadedWithMake: false
+            loadedWithMake: false,
+            text: text
+
         };
 
 
