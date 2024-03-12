@@ -704,6 +704,7 @@ class App extends React.Component {
                                             image={car.image}
                                             options={car.options}
                                             region={car.dealer.region}
+                                            text={this.state.text}
                                         />
                                     </div>
                                 </div>
