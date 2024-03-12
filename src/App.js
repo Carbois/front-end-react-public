@@ -57,8 +57,8 @@ function Filter(props) {
         ? props.filterData.makes.map(make => <option key={make} value={make}>{make}</option>)
         : <option>Loading makes...</option>;
 
-    const modelsOptions = props.filterData.models
-        ? props.filterData.models.map(model => <option key={model} value={model}>{model}</option>)
+    const modelsOptions = props.filterData.filteredModels
+        ? props.filterData.filteredModels.map(model => <option key={model} value={model}>{model}</option>)
         : <option>Loading models...</option>;
 
     const regionOptions = props.filterData.regions
@@ -320,6 +320,7 @@ class App extends React.Component {
                 regions: [],
                 years: [],
                 models: [],
+                filteredModels: [],
                 priceRange: { min: 0, max: 0 },
                 mileageRange: { min: 0, max: 0 },
                 yearRange: { min: 0, max: 0 }
@@ -346,19 +347,19 @@ class App extends React.Component {
         const searchParams = new URLSearchParams(window.location.search);
         const regionParam = searchParams.get('region'); // 'norcal'
         const makeParam = searchParams.get('make'); // 'bmw'
-        
+
         if (regionParam && makeParam) {
             console.log(regionParam, makeParam)
-            this.fetchInventory(regionParam,makeParam);
+            this.fetchInventory(regionParam, makeParam);
         }
         else if (regionParam && !makeParam) {
             this.fetchInventory(regionParam);
-        }else if(makeParam){
-            this.fetchInventory(null,makeParam);
-        }else {
+        } else if (makeParam) {
+            this.fetchInventory(null, makeParam);
+        } else {
             this.fetchInventory();
         }
-        
+
     }
 
     fetchInventory(region, make) {
@@ -474,7 +475,7 @@ class App extends React.Component {
 
             // grab the first word of the model, unless the first word is "Grand", or the name contains "AMG" and is a mercedes, then grab the first two words
             let model = car.model.split(" ")[0];
-            if (model.toLowerCase() == ("grand") || ((model.toLowerCase() === "amg" || car.model.toLowerCase().includes("amg") ) && car.make.name === "Mercedes-Benz")) {
+            if (model.toLowerCase() == ("grand") || ((model.toLowerCase() === "amg" || car.model.toLowerCase().includes("amg")) && car.make.name === "Mercedes-Benz")) {
                 model = car.model.split(" ")[0] + " " + car.model.split(" ")[1];
             }
             if (model.toLowerCase() === "model") {
@@ -503,6 +504,7 @@ class App extends React.Component {
     onFilterChange(filterName, value) {
         this.setState(prevState => {
             let newFilters = { ...prevState.filters }
+            let newFilterData = { ...prevState.filterData }
 
             // Apply validation rules based on filterName
             if (filterName === 'selectedyears') {
@@ -525,6 +527,18 @@ class App extends React.Component {
                 }
                 if (value.max !== undefined) {
                     newFilters.selectedMileage.max = Math.max(value.max, newFilters.selectedMileage.min);
+                }
+            } else if (filterName === 'selectedMake') {
+                newFilters.selectedMake = value;
+                // Filter models based on the cars with the selected make
+                if (value) {
+                    const filteredModels = prevState.cars
+                        .filter(car => car.make === value)
+                        .map(car => car.model)
+                        .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+                    newFilterData.filteredModels = filteredModels;
+                } else {
+                    newFilterData.filteredModels = newFilterData.models // Reset models when no make is selected
                 }
             } else {
                 newFilters[filterName] = value; // For other filters
