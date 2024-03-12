@@ -318,6 +318,7 @@ class App extends React.Component {
         const urlParams = new URLSearchParams(window.location.search);
         const initialMake = urlParams.get('makeName') || '';
         const language = window.location.pathname.includes("/zh") ? "zh" : "en";
+        console.log(window.location.pathname)
         let text= {};
         if(language === "cn"){
             text = {
