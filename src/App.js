@@ -449,6 +449,7 @@ class App extends React.Component {
         let regions = new Set();
         let years = new Set();
         let models = new Set();
+        let filteredModels = new Set();
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
         let minYear = Infinity, maxYear = -Infinity;
@@ -494,7 +495,7 @@ class App extends React.Component {
             regions: Array.from(regions).sort(),
             years: Array.from(years).sort((a, b) => a - b),
             models: Array.from(models).sort(),
-
+            filteredModels: Array.from(models).sort(),
             yearRange: { min: minYear, max: maxYear },
             priceRange: { min: minPrice, max: maxPrice },
             mileageRange: { min: minMileage, max: maxMileage }
