@@ -531,6 +531,7 @@ class App extends React.Component {
                 }
             } else if (filterName === 'selectedMake') {
                 newFilters.selectedMake = value;
+                console.log("make selected", value)
                 // Filter models based on the cars with the selected make
                 if (value) {
                     const filteredModels = prevState.cars
@@ -538,6 +539,7 @@ class App extends React.Component {
                         .map(car => car.model)
                         .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
                     newFilterData.filteredModels = filteredModels;
+                    console.log("filtered models", filteredModels)
                 } else {
                     newFilterData.filteredModels = newFilterData.models // Reset models when no make is selected
                 }
