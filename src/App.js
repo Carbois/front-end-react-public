@@ -475,7 +475,7 @@ class App extends React.Component {
 
             // grab the first word of the model, unless the first word is "Grand", or the name contains "AMG" and is a mercedes, then grab the first two words
             let model = car.model.split(" ")[0];
-            if (model.toLowerCase() == ("grand") || ((model.toLowerCase() === "amg" || car.model.toLowerCase().includes("amg")) && car.make.name === "Mercedes-Benz")) {
+            if (model.toLowerCase() == ("grand") || ((model.toLowerCase() == "amg" || car.model.toLowerCase().includes("amg")) && car.make.name === "Mercedes Benz")) {
                 model = car.model.split(" ")[0] + " " + car.model.split(" ")[1];
             }
             if (model.toLowerCase() === "model") {
@@ -572,6 +572,9 @@ class App extends React.Component {
                 selectedYears: { min: this.state.filterData.yearRange.min, max: this.state.filterData.yearRange.max },
                 selectedPrice: { min: this.state.filterData.priceRange.min, max: this.state.filterData.priceRange.max },
                 selectedMileage: { min: this.state.filterData.mileageRange.min, max: this.state.filterData.mileageRange.max },
+            },
+            filterData: {
+                filteredModels: this.state.filterData.makes
             }
         });
     }
