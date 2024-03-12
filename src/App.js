@@ -316,7 +316,7 @@ class App extends React.Component {
         // check if we have a made selected in the the url
         // if we do, set the make equal to the selected make
         const urlParams = new URLSearchParams(window.location.search);
-        const initialMake = urlParams.get('make_name') || '';
+        const initialMake = urlParams.get('makeName') || '';
         this.state = {
             cars: [],
             filterData: {
@@ -381,7 +381,7 @@ class App extends React.Component {
         console.log(region, make)
 
         const urlParams = new URLSearchParams(window.location.search);
-        const initialMake = urlParams.get('make_name') || '';
+        const initialMake = urlParams.get('makeName') || '';
         
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
