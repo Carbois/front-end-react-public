@@ -447,6 +447,9 @@ class App extends React.Component {
                 //use processFilterData() to process the data and set the state
                 this.setState({ filterData: this.processFilterData(data.data.carsByRegionOrMake) });
                 //set initial filters
+                if(!this.state.loadedWithMake){
+                    initialMake = '';
+                }
                 this.setState({
                     filters: {
                         selectedMake: initialMake,
@@ -549,8 +552,8 @@ class App extends React.Component {
                 }
             } else if (filterName === 'selectedMake') {
                 if (this.state.loadedWithMake) {
-                    this.fetchInventory();
                     this.setState({ loadedWithMake: false });
+                    this.fetchInventory();
                 }
                 newFilters.selectedMake = value;
                 console.log("make selected", value)
