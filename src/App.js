@@ -535,12 +535,12 @@ class App extends React.Component {
                 // Filter models based on the cars with the selected make
                 if (value) {
                     const filteredModels = prevState.cars
-                        .filter(car => car.make === value)
+                        .filter(car => car.make.name === value)
                         .map(car => car.model)
                         .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
                     newFilterData.filteredModels = filteredModels;
                     console.log("filtered models", filteredModels)
-                    console.log(prevState.cars.filter(car => car.make === value))
+                    console.log(prevState.cars.filter(car => car.make.name === value))
                 } else {
                     newFilterData.filteredModels = newFilterData.models // Reset models when no make is selected
                 }
