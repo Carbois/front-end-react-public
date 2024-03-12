@@ -431,6 +431,7 @@ class App extends React.Component {
         let makes = new Set();
         let regions = new Set();
         let years = new Set();
+        let models = new Set();
         let minPrice = Infinity, maxPrice = -Infinity;
         let minMileage = Infinity, maxMileage = -Infinity;
         let minYear = Infinity, maxYear = -Infinity;
@@ -454,6 +455,13 @@ class App extends React.Component {
 
             minYear = Math.min(minYear, car.year);
             maxYear = Math.max(maxYear, car.year);
+
+            // grab the first word of the model, unless the first word is "Grand", or the name contains "AMG" and is a mercedes, then grab the first two words
+            let model = car.model.split(" ")[0];
+            if (model === "Grand" || ((model === "AMG" || car.model.includes("AMG") ) && car.make.name === "Mercedes-Benz")) {
+                model = car.model.split(" ")[0] + " " + car.model.split(" ")[1];
+            }
+            console.log(model)
         });
 
         console.log(maxYear)
