@@ -484,7 +484,7 @@ class App extends React.Component {
             models.add(model);
             // upadate car model to have the formatted model saved
             car.model = model;
-            console.log(length(models))
+            console.log(models.size)
         });
 
         console.log(maxYear)
