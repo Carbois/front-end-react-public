@@ -183,7 +183,7 @@ function Filter(props) {
     );
 }
 
-function CarModal({ car, onClose }) {
+function CarModal({ car, text, onClose }) {
     // Handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -265,19 +265,19 @@ function CarModal({ car, onClose }) {
                             <button className="car-modal-close" onClick={onClose}>&times;</button>
                             <h2>{car.name}</h2>
                         </div>
-                        <p className='listing-price'><strong>价格:</strong> ${car.listingPrice.toLocaleString('en-US')}</p>
-                        <p><strong>年份:</strong> {car.year}</p>
-                        <p><strong>里程:</strong> {car.mileage.toLocaleString('en-US')}</p>
-                        <p><strong>外观颜色:</strong> {car.exteriorColor}</p>
-                        <p><strong>内饰颜色:</strong> {car.interiorColor}</p>
-                        <p><strong>选配/套餐:</strong> {car.options}</p>
+                        <p className='listing-price'><strong>{text.priceTag}:</strong> ${car.listingPrice.toLocaleString('en-US')}</p>
+                        <p><strong>{text.yearTag}:</strong> {car.year}</p>
+                        <p><strong>{text.mileageTag}:</strong> {car.mileage.toLocaleString('en-US')}</p>
+                        <p><strong>{text.extColorTag}:</strong> {car.exteriorColor}</p>
+                        <p><strong>{text.intColorTag}:</strong> {car.interiorColor}</p>
+                        <p><strong>Options:</strong> {car.options}</p>
                         {/*... other details ...*/}
-                        <h2>提出报价</h2>
+                        <h2>{text.contactSellerTag}</h2>
                         <h2 className='best-offer'>Best Offer: ${Math.round(car.listingPrice * 0.95).toLocaleString('en-US')}</h2>
                         <ul>
-                            <li>通过此表格向经销商提出您的报价。</li>
-                            <li>该报价为非约束性谈判提案。</li>
-                            <li>目前最好的报价已在上方标明。低于此报价的出价将自动被拒绝。</li>
+                            <li>{text.offerDescLineOne}</li>
+                            <li>{text.offerDescLineTwo}</li>
+                            <li>{text.offerDescLineThree}</li>
                         </ul>
                         <form onSubmit={handleSubmit} className="contact-form">
                             <label htmlFor="Name">Name:</label>
@@ -331,7 +331,11 @@ class App extends React.Component {
                 driveTypeTag: "驱动类型",
                 verifiedTag: "认证卖家",
                 premierTag: "",
-                priceTag: "价格"
+                priceTag: "价格",
+                contactSellerTag: "提出报价",
+                offerDescLineOne: "通过此表格向经销商提出您的报价。",
+                offerDescLineTwo: "该报价为非约束性谈判提案。",
+                offerDescLineThree: "目前最好的报价已在上方标明。低于此报价的出价将自动被拒绝。"
             }
         }
         else{
@@ -346,7 +350,12 @@ class App extends React.Component {
                 driveTypeTag: "Drive Type",
                 verifiedTag: "Verified Seller",
                 premierTag: "Premier Dealer",
-                priceTag: "Price"
+                priceTag: "Price",
+                contactSellerTag: "Make an Offer",
+                offerDescLineOne: "Use this form to make an offer to the dealer.",
+                offerDescLineTwo: "This offer is a non-binding negotiation proposal, you can lock it in with a deposit once the dealer accepts.",
+                offerDescLineThree: "The current best offer is indicated above. Offers below this amount will be automatically rejected."
+
             }
         }
         this.state = {
@@ -667,7 +676,7 @@ class App extends React.Component {
         return (
             <div className="app-container">
                 {this.state.showModal &&
-                    <CarModal car={this.state.selectedCar} onClose={this.closeModal} />
+                    <CarModal car={this.state.selectedCar} text={this.state.text} onClose={this.closeModal} />
                 }
                 <Filter
                     filterData={this.state.filterData}
