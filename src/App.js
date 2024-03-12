@@ -531,6 +531,7 @@ class App extends React.Component {
             } else if (filterName === 'selectedMake') {
                 newFilters.selectedMake = value;
                 console.log("make selected", value)
+                newFilters.selectedModel = ''; // Reset model when make is changed
                 // Filter models based on the cars with the selected make
                 if (value) {
                     const filteredModels = prevState.cars
