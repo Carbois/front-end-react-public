@@ -381,7 +381,7 @@ class App extends React.Component {
         console.log(region, make)
 
         const urlParams = new URLSearchParams(window.location.search);
-        const initialMake = urlParams.get('makeName') || '';
+        let initialMake = urlParams.get('makeName') || '';
         
         const url = "https://dev-microservices.horizonauto.com/flaskapp/graphql";
         const headers = { "Content-Type": "application/json" };
