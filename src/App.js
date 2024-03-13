@@ -290,7 +290,7 @@ function CarModal({ car, text, onClose }) {
                             <input type="text" name="zipCode" placeholder="95014" required />
                             <label htmlFor="offer">Offer: </label>
                             <p>Minimum Offer: ${Math.round(car.listingPrice * 0.95).toLocaleString('en-US')}</p>
-                            <input type="number" name="offer" placeholder="Your offer" value={Math.round(car.listingPrice * 0.95)} required />
+                            <input type="number" name="offer" placeholder="Your offer" required />
                             <input type="hidden" name="carId" value={car.id} />
                             <button type="submit">Submit</button>
                         </form>
