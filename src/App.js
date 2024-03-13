@@ -137,12 +137,12 @@ function Filter(props) {
                     />
                     <label>
                         Min Price:
-                        <span>{props.currentFilters.selectedPrice.min} </span>
+                        <span>{props.currentFilters.selectedPrice.min.toLocaleString('en-US')} </span>
 
                     </label>
                     <label>
                         Max Price:
-                        <span>{props.currentFilters.selectedPrice.max}</span>
+                        <span>{props.currentFilters.selectedPrice.max.toLocaleString('en-US')}</span>
                     </label>
                 </label>
             </div>
@@ -164,12 +164,12 @@ function Filter(props) {
                     />
                     <label>
                         Min Mileage:
-                        <span>{props.currentFilters.selectedMileage.min} </span>
+                        <span>{props.currentFilters.selectedMileage.min.toLocaleString('en-US')} </span>
 
                     </label>
                     <label>
                         Max Mileage:
-                        <span>{props.currentFilters.selectedMileage.max}</span>
+                        <span>{props.currentFilters.selectedMileage.max.toLocaleString('en-US')}</span>
                     </label>
                 </label>
             </div>
